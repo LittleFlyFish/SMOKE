@@ -67,6 +67,8 @@ class KITTIDataset(Dataset):
         self.output_height = self.input_height // cfg.MODEL.BACKBONE.DOWN_RATIO
         self.max_objs = cfg.DATASETS.MAX_OBJECTS
 
+        self.k = 0
+
         self.logger = logging.getLogger(__name__)
         self.logger.info("Initializing KITTI {} set with {} files loaded".format(self.split, self.num_samples))
 
@@ -80,7 +82,9 @@ class KITTIDataset(Dataset):
         try:
             img = Image.open(img_path)
         except:
+            self.k = self.k + 1
             print('this file has problem:'+ img_path)
+            print('The total corrupted images are', self.k)
             img = Image.open('datasets/kitti/training/image_2/004142.png')
         anns, K = self.load_annotations(idx)
 
