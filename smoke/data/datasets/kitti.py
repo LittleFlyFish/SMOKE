@@ -77,10 +77,11 @@ class KITTIDataset(Dataset):
         # load default parameter here
         original_idx = self.label_files[idx].replace(".txt", "")
         img_path = os.path.join(self.image_dir, self.image_files[idx])
-	try:
-	   img = Image.open(img_path)
-	except:
-	   print('this file has problem:'+ img_path)
+        try:
+            img = Image.open(img_path)
+        except:
+            print('this file has problem:'+ img_path)
+            img = Image.open('datasets/kitti/training/image_2/004142.png')
         anns, K = self.load_annotations(idx)
 
         center = np.array([i / 2 for i in img.size], dtype=np.float32)
