@@ -68,6 +68,7 @@ def do_train(
         loss_dict = model(images, targets)
 
         print('Analysis of the model')
+        print('The image size is', images.image_sizes)
         print_model_summary(model)
         print('here we figure out how it is:')
 
