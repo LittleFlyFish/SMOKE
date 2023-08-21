@@ -33,14 +33,8 @@ def reduce_loss_dict(loss_dict):
         reduced_losses = {k: v for k, v in zip(loss_names, all_losses)}
     return reduced_losses
 
-def print_model_summary(model, input_size):
-    print('Model structure:')
-    print(model)
+def print_model_summary(model):
     print('Model size: {:.2f} MB'.format(sum(p.numel() for p in model.parameters()) / (1024*1024)))
-    input_tensor = torch.randn(input_size)
-    output_tensor = model(input_tensor)
-    print('Input tensor size: {:.2f} MB'.format(input_tensor.element_size() * input_tensor.nelement() / (1024*1024)))
-    print('Output tensor size: {:.2f} MB'.format(output_tensor.element_size() * output_tensor.nelement() / (1024*1024)))
 
 def do_train(
         cfg,
@@ -73,11 +67,8 @@ def do_train(
 
         loss_dict = model(images, targets)
 
-        print('Here is the model shape and size')
-        print(images[0])
-        input_size = images.shape
-        print('The input shape is:', images.shape)
-        print_model_summary(model, input_size)
+        print('Analysis of the model')
+        print_model_summary(model)
         print('here we figure out how it is:')
 
         losses = sum(loss for loss in loss_dict.values())
