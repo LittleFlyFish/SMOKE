@@ -72,11 +72,19 @@ class MobileNetV2(nn.Module):
             [1, 16, 1, 1],
             [6, 24, 2, 2],
             [6, 32, 3, 2],
-            [6, 64, 4, 2],
-            [6, 96, 3, 1],
-            [6, 160, 3, 2],
-            [6, 320, 1, 1]
+            [6, 64, 4, 2]
         ]
+        # The original configs
+        # self.configs=[
+        #     # t, c, n, s
+        #     [1, 16, 1, 1],
+        #     [6, 24, 2, 2],
+        #     [6, 32, 3, 2],
+        #     [6, 64, 4, 2],
+        #     [6, 96, 3, 1],
+        #     [6, 160, 3, 2],
+        #     [6, 320, 1, 1]
+        # ]
 
         self.stem_conv = conv3x3(ch_in, 32, stride=2)
 
@@ -90,7 +98,7 @@ class MobileNetV2(nn.Module):
 
         self.layers = nn.Sequential(*layers)
 
-        self.last_conv = conv1x1(input_channel, 64)
+        self.last_conv = conv1x1(input_channel, 64) # the original one is 1280
 
         self.classifier = nn.Sequential(
             nn.Dropout2d(0.2),
