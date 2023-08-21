@@ -72,7 +72,7 @@ class MobileNetV2(nn.Module):
             [1, 16, 1, 1],
             [6, 24, 2, 2],
             [6, 32, 3, 2],
-            [6, 64, 4, 2]
+            [1, 64, 4, 2]
         ]
         # The original configs
         # self.configs=[
@@ -109,9 +109,7 @@ class MobileNetV2(nn.Module):
     def forward(self, x):
         print('The input tensor size is:', x.shape)
         x = self.stem_conv(x)
-        print('the stem conv shape', x.shape)
         x = self.layers(x)
-        print('the layers shape', x.shape)
         x = self.last_conv(x)
         # x = self.avg_pool(x).view(-1, 1280)
         # x = self.classifier(x)
