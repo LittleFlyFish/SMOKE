@@ -74,7 +74,7 @@ def do_train(
         loss_dict = model(images, targets)
 
         print('Here is the model shape and size')
-        print(images)
+        print(images[0])
         input_size = images.shape
         print('The input shape is:', images.shape)
         print_model_summary(model, input_size)
