@@ -3,7 +3,7 @@ from collections import OrderedDict
 from torch import nn
 
 from smoke.modeling import registry
-from . import dla, MobileNetV4
+from . import dla, MobileNetV2
 
 
 @registry.BACKBONES.register("DLA-34-DCN")
@@ -13,9 +13,9 @@ def build_dla_backbone(cfg):
     model.out_channels = cfg.MODEL.BACKBONE.BACKBONE_OUT_CHANNELS
     return model
 
-@registry.BACKBONES.register("MobileNetV4")
-def build_MV4_backbone(cfg):
-    body = MobileNetV4.model()
+@registry.BACKBONES.register("MobileNetV2")
+def build_MV2_backbone(cfg):
+    body = MobileNetV2.model()
     model = nn.Sequential(OrderedDict([("body", body)]))
     model.out_channels = cfg.MODEL.BACKBONE.BACKBONE_OUT_CHANNELS
     return model
