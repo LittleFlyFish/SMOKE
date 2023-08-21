@@ -90,7 +90,7 @@ class MobileNetV2(nn.Module):
 
         self.layers = nn.Sequential(*layers)
 
-        self.last_conv = conv1x1(input_channel, 1280)
+        self.last_conv = conv1x1(input_channel, 64)
 
         self.classifier = nn.Sequential(
             nn.Dropout2d(0.2),
