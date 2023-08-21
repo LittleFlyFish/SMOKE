@@ -262,7 +262,6 @@ class DLA(nn.Module):
                             norm_func=norm_func)
 
     def forward(self, x):
-        print('the input tensor shape is:', x.shape)
         x = self.base(x)
         x = self.dla_up(x)
 
@@ -272,8 +271,6 @@ class DLA(nn.Module):
         self.ida_up(y, 0, len(y))
 
         # todo: this can be further cleaned
-
-        print('the output tensor shape is:', y[-1].shape)
         return y[-1]
 
 
