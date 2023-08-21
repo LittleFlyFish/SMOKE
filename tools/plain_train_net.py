@@ -1,4 +1,5 @@
 import torch
+import time
 
 from smoke.config import cfg
 from smoke.data import make_data_loader
@@ -86,7 +87,11 @@ def main(args):
             find_unused_parameters=True,
         )
 
+    start_time = time.time()
     train(cfg, model, device, distributed)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"The code took {execution_time} seconds to execute.")
 
 
 if __name__ == '__main__':
