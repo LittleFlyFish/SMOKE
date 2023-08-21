@@ -33,8 +33,7 @@ def reduce_loss_dict(loss_dict):
         reduced_losses = {k: v for k, v in zip(loss_names, all_losses)}
     return reduced_losses
 
-def print_model_summary(model):
-    print('Model size: {:.2f} MB'.format(sum(p.numel() for p in model.parameters()) / (1024*1024)))
+
 
 def do_train(
         cfg,
@@ -66,11 +65,6 @@ def do_train(
         targets = [target.to(device) for target in data["targets"]]
 
         loss_dict = model(images, targets)
-
-        print('Analysis of the model')
-        print('The image size is', images.image_sizes)
-        print_model_summary(model)
-        print('here we figure out how it is:')
 
         losses = sum(loss for loss in loss_dict.values())
 

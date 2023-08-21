@@ -107,13 +107,11 @@ class MobileNetV2(nn.Module):
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
 
     def forward(self, x):
-        print('The input tensor size is:', x.shape)
         x = self.stem_conv(x)
         x = self.layers(x)
         x = self.last_conv(x)
         # x = self.avg_pool(x).view(-1, 1280)
         # x = self.classifier(x)
-        print('the output tensor size is:', x.shape)
         return x
 
 
