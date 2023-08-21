@@ -71,8 +71,6 @@ def main(args):
     model.to(device)
 
 
-
-
     if args.eval_only:
         checkpointer = DetectronCheckpointer(
             cfg, model, save_dir=cfg.OUTPUT_DIR
