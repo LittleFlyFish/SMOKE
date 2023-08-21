@@ -57,6 +57,7 @@ def do_train(
     end = time.time()
 
     for data, iteration in zip(data_loader, range(start_iter, max_iter)):
+        torch.cuda.empty_cache()
         data_time = time.time() - end
         iteration += 1
         arguments["iteration"] = iteration
