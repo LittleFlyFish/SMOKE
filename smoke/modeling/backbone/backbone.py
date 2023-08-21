@@ -15,7 +15,7 @@ def build_dla_backbone(cfg):
 
 @registry.BACKBONES.register("MobileNetV2")
 def build_MV2_backbone(cfg):
-    body = MobileNetV2.model()
+    body = MobileNetV2.MobileNetV2()
     model = nn.Sequential(OrderedDict([("body", body)]))
     model.out_channels = cfg.MODEL.BACKBONE.BACKBONE_OUT_CHANNELS
     return model
