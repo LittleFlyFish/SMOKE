@@ -1,6 +1,11 @@
 import torch.nn as nn
 from torchsummary import summary
 
+
+# the input tensor shape is: torch.Size([2, 3, 384, 1280])
+# the output tensor shape is: torch.Size([2, 64, 96, 320])
+
+
 def dwise_conv(ch_in, stride=1):
     return (
         nn.Sequential(
@@ -98,7 +103,7 @@ class MobileNetV2(nn.Module):
         x = self.stem_conv(x)
         x = self.layers(x)
         x = self.last_conv(x)
-        x = self.avg_pool(x).view(-1, 1280)
+        # x = self.avg_pool(x).view(-1, 1280)
         # x = self.classifier(x)
         print('the output tensor size is:', x.shape)
         return x
