@@ -5,6 +5,7 @@ from torch import nn
 from smoke.modeling import registry
 from . import dla
 
+
 @registry.BACKBONES.register("DLA-34-DCN")
 def build_dla_backbone(cfg):
     body = dla.DLA(cfg)

@@ -70,6 +70,9 @@ def main(args):
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
 
+
+
+
     if args.eval_only:
         checkpointer = DetectronCheckpointer(
             cfg, model, save_dir=cfg.OUTPUT_DIR
