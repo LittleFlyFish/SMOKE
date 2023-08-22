@@ -67,8 +67,6 @@ class KITTIDataset(Dataset):
         self.output_height = self.input_height // cfg.MODEL.BACKBONE.DOWN_RATIO
         self.max_objs = cfg.DATASETS.MAX_OBJECTS
 
-        self.k = 0
-
         self.logger = logging.getLogger(__name__)
         self.logger.info("Initializing KITTI {} set with {} files loaded".format(self.split, self.num_samples))
 
@@ -79,103 +77,51 @@ class KITTIDataset(Dataset):
         # load default parameter here
         original_idx = self.label_files[idx].replace(".txt", "")
         img_path = os.path.join(self.image_dir, self.image_files[idx])
-        try:
-            img = Image.open(img_path)
-            anns, K = self.load_annotations(idx)
+        img = Image.open(img_path)
+        anns, K = self.load_annotations(idx)
 
-            center = np.array([i / 2 for i in img.size], dtype=np.float32)
-            size = np.array([i for i in img.size], dtype=np.float32)
+        center = np.array([i / 2 for i in img.size], dtype=np.float32)
+        size = np.array([i for i in img.size], dtype=np.float32)
 
-            """
-            resize, horizontal flip, and affine augmentation are performed here.
-            since it is complicated to compute heatmap w.r.t transform.
-            """
-            flipped = False
-            if (self.is_train) and (random.random() < self.flip_prob):
-                flipped = True
-                img = img.transpose(Image.FLIP_LEFT_RIGHT)
-                center[0] = size[0] - center[0] - 1
-                K[0, 2] = size[0] - K[0, 2] - 1
+        """
+        resize, horizontal flip, and affine augmentation are performed here.
+        since it is complicated to compute heatmap w.r.t transform.
+        """
+        flipped = False
+        if (self.is_train) and (random.random() < self.flip_prob):
+            flipped = True
+            img = img.transpose(Image.FLIP_LEFT_RIGHT)
+            center[0] = size[0] - center[0] - 1
+            K[0, 2] = size[0] - K[0, 2] - 1
 
-            affine = False
-            if (self.is_train) and (random.random() < self.aug_prob):
-                affine = True
-                shift, scale = self.shift_scale[0], self.shift_scale[1]
-                shift_ranges = np.arange(-shift, shift + 0.1, 0.1)
-                center[0] += size[0] * random.choice(shift_ranges)
-                center[1] += size[1] * random.choice(shift_ranges)
+        affine = False
+        if (self.is_train) and (random.random() < self.aug_prob):
+            affine = True
+            shift, scale = self.shift_scale[0], self.shift_scale[1]
+            shift_ranges = np.arange(-shift, shift + 0.1, 0.1)
+            center[0] += size[0] * random.choice(shift_ranges)
+            center[1] += size[1] * random.choice(shift_ranges)
 
-                scale_ranges = np.arange(1 - scale, 1 + scale + 0.1, 0.1)
-                size *= random.choice(scale_ranges)
+            scale_ranges = np.arange(1 - scale, 1 + scale + 0.1, 0.1)
+            size *= random.choice(scale_ranges)
 
-            center_size = [center, size]
-            trans_affine = get_transfrom_matrix(
-                center_size,
-                [self.input_width, self.input_height]
-            )
-            trans_affine_inv = np.linalg.inv(trans_affine)
-            img = img.transform(
-                (self.input_width, self.input_height),
-                    method=Image.AFFINE,
-                    data=trans_affine_inv.flatten()[:6],
-                    resample=Image.BILINEAR,
-                )
+        center_size = [center, size]
+        trans_affine = get_transfrom_matrix(
+            center_size,
+            [self.input_width, self.input_height]
+        )
+        trans_affine_inv = np.linalg.inv(trans_affine)
+        img = img.transform(
+            (self.input_width, self.input_height),
+            method=Image.AFFINE,
+            data=trans_affine_inv.flatten()[:6],
+            resample=Image.BILINEAR,
+        )
 
-            trans_mat = get_transfrom_matrix(
-                center_size,
-                [self.output_width, self.output_height]
-            )
-        except:
-            self.k = self.k + 1
-            print('this file has problem:' + img_path)
-            print('The total corrupted images are', self.k)
-            # img = Image.open('datasets/kitti/training/image_2/004142.png')
-            img = Image.open('datasets/kitti/testing/image_2/003948.png')
-            anns, K = self.load_annotations(idx)
-
-            center = np.array([i / 2 for i in img.size], dtype=np.float32)
-            size = np.array([i for i in img.size], dtype=np.float32)
-
-            """
-            resize, horizontal flip, and affine augmentation are performed here.
-            since it is complicated to compute heatmap w.r.t transform.
-            """
-            flipped = False
-            if (self.is_train) and (random.random() < self.flip_prob):
-                flipped = True
-                img = img.transpose(Image.FLIP_LEFT_RIGHT)
-                center[0] = size[0] - center[0] - 1
-                K[0, 2] = size[0] - K[0, 2] - 1
-
-            affine = False
-            if (self.is_train) and (random.random() < self.aug_prob):
-                affine = True
-                shift, scale = self.shift_scale[0], self.shift_scale[1]
-                shift_ranges = np.arange(-shift, shift + 0.1, 0.1)
-                center[0] += size[0] * random.choice(shift_ranges)
-                center[1] += size[1] * random.choice(shift_ranges)
-
-                scale_ranges = np.arange(1 - scale, 1 + scale + 0.1, 0.1)
-                size *= random.choice(scale_ranges)
-
-            center_size = [center, size]
-            trans_affine = get_transfrom_matrix(
-                center_size,
-                [self.input_width, self.input_height]
-            )
-            trans_affine_inv = np.linalg.inv(trans_affine)
-
-            img = img.transform(
-                (self.input_width, self.input_height),
-                method=Image.AFFINE,
-                data=trans_affine_inv.flatten()[:6],
-                resample=Image.BILINEAR,
-            )
-
-            trans_mat = get_transfrom_matrix(
-                center_size,
-                [self.output_width, self.output_height]
-            )
+        trans_mat = get_transfrom_matrix(
+            center_size,
+            [self.output_width, self.output_height]
+        )
 
         if not self.is_train:
             # for inference we parametrize with original size
@@ -205,3 +151,88 @@ class KITTIDataset(Dataset):
 
             locs = np.array(a["locations"])
             rot_y = np.array(a["rot_y"])
+            if flipped:
+                locs[0] *= -1
+                rot_y *= -1
+
+            point, box2d, box3d = encode_label(
+                K, rot_y, a["dimensions"], locs
+            )
+            point = affine_transform(point, trans_mat)
+            box2d[:2] = affine_transform(box2d[:2], trans_mat)
+            box2d[2:] = affine_transform(box2d[2:], trans_mat)
+            box2d[[0, 2]] = box2d[[0, 2]].clip(0, self.output_width - 1)
+            box2d[[1, 3]] = box2d[[1, 3]].clip(0, self.output_height - 1)
+            h, w = box2d[3] - box2d[1], box2d[2] - box2d[0]
+
+            if (0 < point[0] < self.output_width) and (0 < point[1] < self.output_height):
+                point_int = point.astype(np.int32)
+                p_offset = point - point_int
+                radius = gaussian_radius(h, w)
+                radius = max(0, int(radius))
+                heat_map[cls] = draw_umich_gaussian(heat_map[cls], point_int, radius)
+
+                cls_ids[i] = cls
+                regression[i] = box3d
+                proj_points[i] = point_int
+                p_offsets[i] = p_offset
+                dimensions[i] = np.array(a["dimensions"])
+                locations[i] = locs
+                rotys[i] = rot_y
+                reg_mask[i] = 1 if not affine else 0
+                flip_mask[i] = 1 if not affine and flipped else 0
+
+        target = ParamsList(image_size=img.size,
+                            is_train=self.is_train)
+        target.add_field("hm", heat_map)
+        target.add_field("reg", regression)
+        target.add_field("cls_ids", cls_ids)
+        target.add_field("proj_p", proj_points)
+        target.add_field("dimensions", dimensions)
+        target.add_field("locations", locations)
+        target.add_field("rotys", rotys)
+        target.add_field("trans_mat", trans_mat)
+        target.add_field("K", K)
+        target.add_field("reg_mask", reg_mask)
+        target.add_field("flip_mask", flip_mask)
+
+        if self.transforms is not None:
+            img, target = self.transforms(img, target)
+
+        return img, target, original_idx
+
+    def load_annotations(self, idx):
+        annotations = []
+        file_name = self.label_files[idx]
+        fieldnames = ['type', 'truncated', 'occluded', 'alpha', 'xmin', 'ymin', 'xmax', 'ymax', 'dh', 'dw',
+                      'dl', 'lx', 'ly', 'lz', 'ry']
+
+        if self.is_train:
+            with open(os.path.join(self.label_dir, file_name), 'r') as csv_file:
+                reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
+
+                for line, row in enumerate(reader):
+                    if row["type"] in self.classes:
+                        annotations.append({
+                            "class": row["type"],
+                            "label": TYPE_ID_CONVERSION[row["type"]],
+                            "truncation": float(row["truncated"]),
+                            "occlusion": float(row["occluded"]),
+                            "alpha": float(row["alpha"]),
+                            "dimensions": [float(row['dl']), float(row['dh']), float(row['dw'])],
+                            "locations": [float(row['lx']), float(row['ly']), float(row['lz'])],
+                            "rot_y": float(row["ry"])
+                        })
+
+        # get camera intrinsic matrix K
+        with open(os.path.join(self.calib_dir, file_name), 'r') as csv_file:
+            reader = csv.reader(csv_file, delimiter=' ')
+            for line, row in enumerate(reader):
+                if row[0] == 'P2:':
+                    K = row[1:]
+                    K = [float(i) for i in K]
+                    K = np.array(K, dtype=np.float32).reshape(3, 4)
+                    K = K[:3, :3]
+                    break
+
+        return annotations, K
