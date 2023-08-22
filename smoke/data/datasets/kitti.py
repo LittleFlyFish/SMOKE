@@ -120,6 +120,8 @@ class KITTIDataset(Dataset):
             [self.input_width, self.input_height]
         )
         trans_affine_inv = np.linalg.inv(trans_affine)
+
+        print('this file has problem:' + img_path)
         img = img.transform(
             (self.input_width, self.input_height),
             method=Image.AFFINE,
