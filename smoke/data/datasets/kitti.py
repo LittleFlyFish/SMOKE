@@ -79,6 +79,47 @@ class KITTIDataset(Dataset):
         img_path = os.path.join(self.image_dir, self.image_files[idx])
         try:
             img = Image.open(img_path)
+
+            anns, K = self.load_annotations(idx)
+
+            center = np.array([i / 2 for i in img.size], dtype=np.float32)
+            size = np.array([i for i in img.size], dtype=np.float32)
+
+            """
+            resize, horizontal flip, and affine augmentation are performed here.
+            since it is complicated to compute heatmap w.r.t transform.
+            """
+            flipped = False
+            if (self.is_train) and (random.random() < self.flip_prob):
+                flipped = True
+                img = img.transpose(Image.FLIP_LEFT_RIGHT)
+                center[0] = size[0] - center[0] - 1
+                K[0, 2] = size[0] - K[0, 2] - 1
+
+            affine = False
+            if (self.is_train) and (random.random() < self.aug_prob):
+                affine = True
+                shift, scale = self.shift_scale[0], self.shift_scale[1]
+                shift_ranges = np.arange(-shift, shift + 0.1, 0.1)
+                center[0] += size[0] * random.choice(shift_ranges)
+                center[1] += size[1] * random.choice(shift_ranges)
+
+                scale_ranges = np.arange(1 - scale, 1 + scale + 0.1, 0.1)
+                size *= random.choice(scale_ranges)
+
+            center_size = [center, size]
+
+            trans_affine = get_transfrom_matrix(
+                center_size,
+                [self.input_width, self.input_height]
+            )
+            trans_affine_inv = np.linalg.inv(trans_affine)
+            img = img.transform(
+                (self.input_width, self.input_height),
+                method=Image.AFFINE,
+                data=trans_affine_inv.flatten()[:6],
+                resample=Image.BILINEAR,
+            )
         except:
             print('This image has error:', img_path)
             img = Image.open('datasets/kitti/testing/image_2/000088.png')
