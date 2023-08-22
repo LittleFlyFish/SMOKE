@@ -85,7 +85,8 @@ class KITTIDataset(Dataset):
             self.k = self.k + 1
             print('this file has problem:'+ img_path)
             print('The total corrupted images are', self.k)
-            img = Image.open('datasets/kitti/training/image_2/004142.png')
+            # img = Image.open('datasets/kitti/training/image_2/004142.png')
+            img = Image.open('datasets/kitti/testing/image_2/003948.png')
         anns, K = self.load_annotations(idx)
 
         center = np.array([i / 2 for i in img.size], dtype=np.float32)
