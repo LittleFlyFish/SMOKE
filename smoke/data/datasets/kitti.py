@@ -77,7 +77,12 @@ class KITTIDataset(Dataset):
         # load default parameter here
         original_idx = self.label_files[idx].replace(".txt", "")
         img_path = os.path.join(self.image_dir, self.image_files[idx])
-        img = Image.open(img_path)
+        try:
+            img = Image.open(img_path)
+        except:
+            print('This image has error:', img_path)
+            img = Image.open(img_path)
+
         anns, K = self.load_annotations(idx)
 
         center = np.array([i / 2 for i in img.size], dtype=np.float32)
