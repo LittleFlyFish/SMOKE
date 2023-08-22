@@ -45,7 +45,7 @@ def do_kitti_detection_evaluation(dataset,
 
     logger.info("Evaluate on KITTI dataset")
     output_dir = os.path.abspath(output_folder)
-    os.chdir('../smoke/data/datasets/evaluation/kitti/kitti_eval')
+    os.chdir('./smoke/data/datasets/evaluation/kitti/kitti_eval')
     label_dir = getattr(dataset, 'label_dir')
     if not os.path.isfile('evaluate_object_3d_offline'):
         subprocess.Popen('g++ -O3 -DNDEBUG -o evaluate_object_3d_offline evaluate_object_3d_offline.cpp', shell=True)
