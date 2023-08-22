@@ -121,13 +121,17 @@ class KITTIDataset(Dataset):
         )
         trans_affine_inv = np.linalg.inv(trans_affine)
 
-        print('this file has problem:' + img_path)
-        img = img.transform(
-            (self.input_width, self.input_height),
-            method=Image.AFFINE,
-            data=trans_affine_inv.flatten()[:6],
-            resample=Image.BILINEAR,
-        )
+
+        try:
+            img = img.transform(
+                (self.input_width, self.input_height),
+                method=Image.AFFINE,
+                data=trans_affine_inv.flatten()[:6],
+                resample=Image.BILINEAR,
+            )
+        except:
+            print('this file has problem:' + img_path)
+
 
         trans_mat = get_transfrom_matrix(
             center_size,
