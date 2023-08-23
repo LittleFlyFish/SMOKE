@@ -14,14 +14,11 @@ def compute_on_dataset(model, data_loader, device, timer=None):
     cpu_device = torch.device("cpu")
     for _, batch in enumerate(tqdm(data_loader)):
         images, targets, image_ids = batch["images"], batch["targets"], batch["img_ids"]
-        print('test the existing performance:')
         images = images.to(device)
         with torch.no_grad():
             if timer:
                 timer.tic()
             output = model(images, targets)
-            print(output)
-            print(output.shape)
             # for name, param in model.named_parameters():
             #     print(name, param.data)
 
