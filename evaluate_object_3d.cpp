@@ -775,9 +775,9 @@ bool eval(string result_sha,Mail* mail){
   string result_dir     = "results/" + result_sha;
   string plot_dir       = result_dir + "/plot";
 
-  cout << 'The result path is:' << std::endl;
-  cout << result_dir << std::endl;
-  cout << plot_dir << std::endl;
+  cout << 'The result path is:' << endl;
+  cout << result_dir << endl;
+  cout << plot_dir << endl;
 
   // create output directories
   system(("mkdir " + plot_dir).c_str());
