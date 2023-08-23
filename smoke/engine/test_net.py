@@ -14,7 +14,6 @@ def run_test(cfg, model):
         for idx, dataset_name in enumerate(dataset_names):
             output_folder = os.path.join(cfg.OUTPUT_DIR, "inference", dataset_name)
             mkdir(output_folder)
-            print('the output_folder is:', output_folder)
             output_folders[idx] = output_folder
     data_loaders_val = build_test_loader(cfg)
     for output_folder, dataset_name, data_loader_val in zip(output_folders, dataset_names, data_loaders_val):
