@@ -801,7 +801,7 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
   // string result_dir     = "results/" + result_sha;
   string plot_dir       = result_dir + "/plot";
 
-  std::cout << "gt_dir filepath: " << gt_dir << std::endl;
+  cout << gt_dir << endl;
 
 
   // create output directories
