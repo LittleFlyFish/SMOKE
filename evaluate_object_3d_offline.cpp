@@ -708,7 +708,7 @@ void saveAndPlotPlots(string dir_name,string file_name,string obj_type,vector<do
 
   char command[1024];
 
-  cout << 'The plot path is :' << endl;
+  cout << "The plot path is :" << endl;
   cout << dir_name << endl;
   cout << file_name << endl;
 
@@ -858,7 +858,7 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval image 2D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
-    cout << 'The file number is:' << endl;
+    cout << "The file number is:" << endl;
     cout << c << endl;
     CLASSES cls = (CLASSES)c;
     if (eval_image[c]) {
@@ -886,7 +886,7 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval bird's eye view bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
-    cout << 'The file number is:' << endl;
+    cout << "The file number is:" << endl;
     cout << c << endl;
     CLASSES cls = (CLASSES)c;
     if (eval_ground[c]) {
