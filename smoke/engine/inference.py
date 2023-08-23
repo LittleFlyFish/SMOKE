@@ -19,6 +19,7 @@ def compute_on_dataset(model, data_loader, device, timer=None):
         print(images)
         print(targets)
         print(images.image_sizes)
+        print(images[0])
         images = images.to(device)
         with torch.no_grad():
             if timer:
@@ -26,6 +27,9 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             output = model(images, targets)
             print(output)
             print(output.shape)
+            for name, param in model.named_parameters():
+                print(name, param.data)
+
             if timer:
                 torch.cuda.synchronize()
                 timer.toc()
