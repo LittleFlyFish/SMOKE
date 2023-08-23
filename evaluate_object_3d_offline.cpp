@@ -835,6 +835,14 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     // read ground truth and result poses
     bool gt_success,det_success;
     vector<tGroundtruth> gt   = loadGroundtruth(gt_dir + "/" + file_name,gt_success);
+
+    cout << "check if this line is running" << endl;
+    cout << eval_3d << endl;
+    cout << eval_image<< endl;
+    cout << eval_ground << endl;
+    cout << result_dir + "/data/" + file_name << endl;
+
+
     vector<tDetection>   det  = loadDetections(result_dir + "/data/" + file_name,
             compute_aos, eval_image, eval_ground, eval_3d, det_success);
     groundtruth.push_back(gt);
@@ -858,9 +866,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval image 2D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
-    cout << "The file number is:" << endl;
-    cout << c << endl;
-
     CLASSES cls = (CLASSES)c;
     if (eval_image[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection.txt").c_str(), "w");
@@ -873,7 +878,11 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
         mail->msg("%s evaluation failed.", CLASS_NAMES[c].c_str());
         return false;
       }
+
       fclose(fp_det);
+
+      cout << "This line is running" << endl;
+
       saveAndPlotPlots(plot_dir, CLASS_NAMES[c] + "_detection", CLASS_NAMES[c], precision, 0);
       if(compute_aos){
         saveAndPlotPlots(plot_dir, CLASS_NAMES[c] + "_orientation", CLASS_NAMES[c], aos, 1);
@@ -887,8 +896,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval bird's eye view bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
-    cout << "The file number is:" << endl;
-    cout << c << endl;
     CLASSES cls = (CLASSES)c;
     if (eval_ground[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection_ground.txt").c_str(), "w");
