@@ -835,11 +835,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     // read ground truth and result poses
     bool gt_success,det_success;
     vector<tGroundtruth> gt   = loadGroundtruth(gt_dir + "/" + file_name,gt_success);
-
-    cout << "check if this line is running" << endl;
-    cout << result_dir + "/data/" + file_name << endl;
-
-
     vector<tDetection>   det  = loadDetections(result_dir + "/data/" + file_name,
             compute_aos, eval_image, eval_ground, eval_3d, det_success);
     groundtruth.push_back(gt);
@@ -911,6 +906,10 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
   // eval 3D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
     CLASSES cls = (CLASSES)c;
+
+    std::cout << "The 3D bounding boxes line is running" << std::endl;
+    std::cout << "The value of eval_3d is: " << std::boolalpha << eval_3d[c] << std::endl;
+
     if (eval_3d[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection_3d.txt").c_str(), "w");
       vector<double> precision[3], aos[3];
