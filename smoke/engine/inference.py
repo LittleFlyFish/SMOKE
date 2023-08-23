@@ -19,7 +19,7 @@ def compute_on_dataset(model, data_loader, device, timer=None):
         print(images)
         print(targets)
         print(images.image_sizes)
-        print(images[0])
+        print(images.tensors)
         images = images.to(device)
         with torch.no_grad():
             if timer:
