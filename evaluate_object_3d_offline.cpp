@@ -860,6 +860,7 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
   for (int c = 0; c < NUM_CLASS; c++) {
     cout << "The file number is:" << endl;
     cout << c << endl;
+
     CLASSES cls = (CLASSES)c;
     if (eval_image[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection.txt").c_str(), "w");
@@ -935,6 +936,10 @@ int32_t main (int32_t argc,char *argv[]) {
   // read arguments
   string gt_dir = argv[1];
   string result_dir = argv[2];
+
+  cout << "The filepath are:" << endl;
+  cout << gt_dir << endl;
+  cout << result_dir << endl;
 
   // init notification mail
   Mail *mail;
