@@ -21,7 +21,7 @@ class DatasetCatalog():
             args = dict(
                 root=os.path.join(data_dir, attrs["root"]),
             )
-             return dict(
+            return dict(
                 factory="KITTIDataset",
                 args=args,
             )
