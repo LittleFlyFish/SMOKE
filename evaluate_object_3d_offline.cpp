@@ -858,6 +858,8 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval image 2D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
+    cout << 'The file number is:' << std::endl;
+    cout << c << std::endl;
     CLASSES cls = (CLASSES)c;
     if (eval_image[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection.txt").c_str(), "w");
@@ -884,6 +886,8 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
   // eval bird's eye view bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
+    cout << 'The file number is:' << std::endl;
+    cout << c << std::endl;
     CLASSES cls = (CLASSES)c;
     if (eval_ground[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection_ground.txt").c_str(), "w");
