@@ -771,7 +771,7 @@ bool eval(string result_sha,Mail* mail){
   initGlobals();
 
   // ground truth and result directories
-  string gt_dir         = "./tools/logs/inference/kitti_test/data";
+  string gt_dir         = "/soe/SMOKE/datasets/kitti/testing/label_2";
   string result_dir     = "results/" + result_sha;
   string plot_dir       = result_dir + "/plot";
 
