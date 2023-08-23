@@ -47,12 +47,18 @@ def do_kitti_detection_evaluation(dataset,
     output_dir = os.path.abspath(output_folder)
     os.chdir('./smoke/data/datasets/evaluation/kitti/kitti_eval')
     label_dir = getattr(dataset, 'label_dir')
-    if not os.path.isfile('evaluate_object_3d_offline'):
-        subprocess.Popen('g++ -O3 -DNDEBUG -o evaluate_object_3d_offline evaluate_object_3d_offline.cpp', shell=True)
-    command = "./evaluate_object_3d_offline {} {}".format(label_dir, output_dir)
+    root = '/soe/SMOKE/'
+    if not os.path.isfile('/soe/SMOKE/evaluate_object_3d_offline'):
+        subprocess.Popen('g++ -O3 -DNDEBUG -o /soe/SMOKE/evaluate_object_3d_offline /soe/SMOKE/evaluate_object_3d_offline.cpp', shell=True)
+    command = "/soe/SMOKE/evaluate_object_3d_offline {} {}".format(root + label_dir, output_dir)
+
+    # print('The file path is:')
+    # print(label_dir) # datasets/kitti/testing/label_2
+    # print(output_dir) # /soe/SMOKE/tools/logs/inference/kitti_test
+
     output = subprocess.check_output(command, shell=True, universal_newlines=True).strip()
     logger.info(output)
-    os.chdir('./tools')
+    os.chdir('/soe/SMOKE/tools')
 
 
 def generate_kitti_3d_detection(prediction, predict_txt):

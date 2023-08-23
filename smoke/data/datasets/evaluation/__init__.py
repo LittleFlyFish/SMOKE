@@ -1,6 +1,6 @@
 from smoke.data import datasets
 
-from .kitti.kitti_eval import kitti_evaluation
+from .kitti.kitti_eval_outside import kitti_evaluation
 
 
 def evaluate(eval_type, dataset, predictions, output_folder):
