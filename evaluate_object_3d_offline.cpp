@@ -838,6 +838,9 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
 
     // check for errors
     if (!gt_success) {
+      cout << gt_dir + "/" + file_name << endl;
+      cout << gt_dir << endl;
+      cout << file_name << endl;
       mail->msg("ERROR: Couldn't read: %s of ground truth. Please write me an email!", file_name);
       return false;
     }
