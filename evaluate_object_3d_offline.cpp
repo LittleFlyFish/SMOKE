@@ -837,9 +837,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     vector<tGroundtruth> gt   = loadGroundtruth(gt_dir + "/" + file_name,gt_success);
 
     cout << "check if this line is running" << endl;
-    std::cout << "The value of eval_image is: " << eval_image << std::endl;
-    std::cout << "The value of eval_3d is: " << eval_3d << std::endl;
-    std::cout << "The value of eval_ground is: " << eval_ground << std::endl;
     cout << result_dir + "/data/" + file_name << endl;
 
 
