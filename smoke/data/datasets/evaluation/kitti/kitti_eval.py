@@ -37,8 +37,6 @@ def do_kitti_detection_evaluation(dataset,
     predict_folder = os.path.join(output_folder, 'data')  # only recognize data
     mkdir(predict_folder)
 
-    print('The predict_folder is:', predict_folder)
-
     for image_id, prediction in predictions.items():
         predict_txt = image_id + '.txt'
         predict_txt = os.path.join(predict_folder, predict_txt)
@@ -54,9 +52,9 @@ def do_kitti_detection_evaluation(dataset,
         subprocess.Popen('g++ -O3 -DNDEBUG -o /soe/SMOKE/evaluate_object_3d_offline /soe/SMOKE/evaluate_object_3d_offline.cpp', shell=True)
     command = "/soe/SMOKE/evaluate_object_3d_offline {} {}".format(root + label_dir, output_dir)
 
-    print('The file path is:')
-    print(label_dir) # datasets/kitti/testing/label_2
-    print(output_dir) # /soe/SMOKE/tools/logs/inference/kitti_test
+    # print('The file path is:')
+    # print(label_dir) # datasets/kitti/testing/label_2
+    # print(output_dir) # /soe/SMOKE/tools/logs/inference/kitti_test
 
     output = subprocess.check_output(command, shell=True, universal_newlines=True).strip()
     logger.info(output)
