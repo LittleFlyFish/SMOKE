@@ -41,6 +41,10 @@ def do_kitti_detection_evaluation(dataset,
         predict_txt = image_id + '.txt'
         predict_txt = os.path.join(predict_folder, predict_txt)
 
+        print('the test for predict_txt:')
+        print(prediction)
+        print(predict_txt)
+
         generate_kitti_3d_detection(prediction, predict_txt)
 
     logger.info("Evaluate on KITTI dataset")

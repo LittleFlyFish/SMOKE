@@ -2,7 +2,7 @@ import os
 
 
 class DatasetCatalog():
-    DATA_DIR = "datasets"
+    DATA_DIR = "/soe/SMOKE/datasets"
     DATASETS = {
         "kitti_train": {
             "root": "kitti/training/",
@@ -21,6 +21,7 @@ class DatasetCatalog():
             args = dict(
                 root=os.path.join(data_dir, attrs["root"]),
             )
+            print('check if the dataset are correct:', os.path.join(data_dir, attrs["root"]))
             return dict(
                 factory="KITTIDataset",
                 args=args,
