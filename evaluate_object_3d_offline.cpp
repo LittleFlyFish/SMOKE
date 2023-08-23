@@ -801,8 +801,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
   // string result_dir     = "results/" + result_sha;
   string plot_dir       = result_dir + "/plot";
 
-  cout << gt_dir << endl;
-
 
   // create output directories
   system(("mkdir " + plot_dir).c_str());
@@ -836,6 +834,8 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
             compute_aos, eval_image, eval_ground, eval_3d, det_success);
     groundtruth.push_back(gt);
     detections.push_back(det);
+
+    cout << gt_dir + "/" + file_name << endl;
 
     // check for errors
     if (!gt_success) {
