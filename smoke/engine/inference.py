@@ -24,6 +24,7 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
+            print(output)
             print(output.shape)
             if timer:
                 torch.cuda.synchronize()
