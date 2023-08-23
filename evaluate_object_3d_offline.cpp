@@ -903,14 +903,11 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     }
   }
 
-  std::cout << "This head line is running" << std::endl;
   // eval 3D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
     CLASSES cls = (CLASSES)c;
-
-    std::cout << "The 3D bounding boxes line is running" << std::endl;
+    eval_3d[c] = true;
     std::cout << "The value of eval_3d is: " << std::boolalpha << eval_3d[c] << std::endl;
-
     if (eval_3d[c]) {
       fp_det = fopen((result_dir + "/stats_" + CLASS_NAMES[c] + "_detection_3d.txt").c_str(), "w");
       vector<double> precision[3], aos[3];
