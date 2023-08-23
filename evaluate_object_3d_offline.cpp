@@ -802,8 +802,8 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
   initGlobals();
 
   //ground truth and result directories
-  string gt_dir         = "/soe/SMOKE/datasets/kitti/testing/label_2";
-  string result_dir     = "/soe/SMOKE/tools/logs/inference/kitti_test";
+//  string gt_dir         = "/soe/SMOKE/datasets/kitti/testing/label_2";
+//  string result_dir     = "/soe/SMOKE/tools/logs/inference/kitti_test";
   string plot_dir       = result_dir + "/plot";
 
 
