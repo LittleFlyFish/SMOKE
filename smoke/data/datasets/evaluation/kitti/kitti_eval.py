@@ -52,7 +52,7 @@ def do_kitti_detection_evaluation(dataset,
     root = '/soe/SMOKE'
     if not os.path.isfile('/soe/SMOKE/evaluate_object_3d_offline'):
         subprocess.Popen('g++ -O3 -DNDEBUG -o /soe/SMOKE/evaluate_object_3d_offline /soe/SMOKE/evaluate_object_3d_offline.cpp', shell=True)
-    command = "/soe/SMOKE/evaluate_object_3d_offline {} {}".format(root + label_dir,root + output_dir)
+    command = "/soe/SMOKE/evaluate_object_3d_offline {} {}".format(root + label_dir, output_dir)
 
     print('The file path is:')
     print(label_dir) # datasets/kitti/testing/label_2
