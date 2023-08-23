@@ -835,9 +835,6 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     groundtruth.push_back(gt);
     detections.push_back(det);
 
-    cout << gt_dir + "/" + file_name << endl;
-    cout << gt_dir << endl;
-    cout << file_name << endl;
 
     // check for errors
     if (!gt_success) {
