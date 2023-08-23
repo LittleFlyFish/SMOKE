@@ -708,6 +708,10 @@ void saveAndPlotPlots(string dir_name,string file_name,string obj_type,vector<do
 
   char command[1024];
 
+  cout << 'The plot path is :' << std::endl;
+  cout << dir_name << std::endl;
+  cout << file_name << std::endl;
+
   // save plot data to file
   FILE *fp = fopen((dir_name + "/" + file_name + ".txt").c_str(),"w");
   printf("save %s\n", (dir_name + "/" + file_name + ".txt").c_str());
@@ -727,6 +731,7 @@ void saveAndPlotPlots(string dir_name,string file_name,string obj_type,vector<do
 
     // open file
     FILE *fp = fopen((dir_name + "/" + file_name + ".gp").c_str(),"w");
+
 
     // save gnuplot instructions
     if (j==0) {
