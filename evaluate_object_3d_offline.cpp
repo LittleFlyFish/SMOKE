@@ -903,6 +903,7 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     }
   }
 
+  std::cout << "This head line is running" << std::endl;
   // eval 3D bounding boxes
   for (int c = 0; c < NUM_CLASS; c++) {
     CLASSES cls = (CLASSES)c;
