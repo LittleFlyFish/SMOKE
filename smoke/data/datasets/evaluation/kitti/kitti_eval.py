@@ -54,8 +54,8 @@ def do_kitti_detection_evaluation(dataset,
     command = "/soe/SMOKE/evaluate_object_3d_offline {} {}".format(label_dir, output_dir)
 
     print('The file path is:')
-    print(label_dir)
-    print(output_dir)
+    print(label_dir) # datasets/kitti/testing/label_2
+    print(output_dir) # /soe/SMOKE/tools/logs/inference/kitti_test
 
     output = subprocess.check_output(command, shell=True, universal_newlines=True).strip()
     logger.info(output)
