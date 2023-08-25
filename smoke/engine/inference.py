@@ -26,9 +26,6 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
-            print('The output tensor size:')
-            print(output)
-
 
             if timer:
                 torch.cuda.synchronize()
