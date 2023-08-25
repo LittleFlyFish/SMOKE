@@ -27,7 +27,12 @@ class SMOKEHead(nn.Module):
             'print the problem of the model'
             print(targets)
             result = self.post_processor(x, targets)
-            print(self.post_processor)
+            # Print the parameters
+            for name, param in self.post_processor.named_parameters():
+                print(f"Parameter name: {name}")
+                print(param)
+                print("-----------")
+
             return result, {}
 
 
