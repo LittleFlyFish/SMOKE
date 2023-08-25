@@ -33,8 +33,6 @@ class PostProcessor(nn.Module):
                     size=size)
 
     def forward(self, predictions, targets):
-        print('check this line is running: ')
-
         pred_heatmap, pred_regression = predictions[0], predictions[1]
         batch = pred_heatmap.shape[0]
 
