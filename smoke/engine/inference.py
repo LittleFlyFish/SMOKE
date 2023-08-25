@@ -11,6 +11,12 @@ from smoke.data.datasets.evaluation import evaluate
 def compute_on_dataset(model, data_loader, device, timer=None):
     model.eval()
 
+    # Print the parameters
+    for name, param in model.named_parameters():
+        print(f"Parameter name: {name}")
+        print(param)
+        print("-----------")
+
     results_dict = {}
     cpu_device = torch.device("cpu")
     for _, batch in enumerate(tqdm(data_loader)):
