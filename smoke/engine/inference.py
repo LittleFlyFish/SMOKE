@@ -11,11 +11,11 @@ from smoke.data.datasets.evaluation import evaluate
 def compute_on_dataset(model, data_loader, device, timer=None):
     model.eval()
 
-    # Print the parameters
-    for name, param in model.named_parameters():
-        print(f"Parameter name: {name}")
-        print(param)
-        print("-----------")
+    # # Print the parameters
+    # for name, param in model.named_parameters():
+    #     print(f"Parameter name: {name}")
+    #     print(param)
+    #     print("-----------")
 
     results_dict = {}
     cpu_device = torch.device("cpu")
@@ -26,7 +26,6 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
-
             print('The output tensor size:')
             print(output)
 
