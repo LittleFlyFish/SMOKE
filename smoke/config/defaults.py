@@ -73,7 +73,7 @@ _C.MODEL.BACKBONE = CN()
 
 # The backbone conv body to use
 # The string must match a function that is imported in modeling.model_builder
-_C.MODEL.BACKBONE.CONV_BODY = "MobileNetV2" # "DLA-34-DCN" #
+_C.MODEL.BACKBONE.CONV_BODY =  "DLA-34-DCN" # "MobileNetV2" #
 
 # Add StopGrad at a specified stage so the bottom layers are frozen
 _C.MODEL.BACKBONE.FREEZE_CONV_BODY_AT = 0
