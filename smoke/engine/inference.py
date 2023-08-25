@@ -20,7 +20,7 @@ def compute_on_dataset(model, data_loader, device, timer=None):
                 timer.tic()
             output = model(images, targets)
             print('Let us see the output ')
-            print(images)
+            print(images.tensors)
             print(output)
 
             if timer:
