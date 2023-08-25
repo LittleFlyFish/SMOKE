@@ -17,22 +17,13 @@ class SMOKEHead(nn.Module):
 
     def forward(self, features, targets=None):
         x = self.predictor(features)
-
-        print('here is the test:')
-
         if self.training:
             loss_heatmap, loss_regression = self.loss_evaluator(x, targets)
 
             return {}, dict(hm_loss=loss_heatmap,
                             reg_loss=loss_regression, )
         if not self.training:
-            print('Test if this line is running:')
             result = self.post_processor(x, targets)
-            # Print the parameters
-            for name, param in self.post_processor.named_parameters():
-                print(f"Parameter name: {name}")
-                print(param)
-                print("-----------")
 
             return result, {}
 

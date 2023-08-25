@@ -121,4 +121,10 @@ def make_smoke_post_processor(cfg):
         cfg.TEST.PRED_2D,
     )
 
+    # Print the parameters
+    for name, param in postprocessor.named_parameters():
+        print(f"Parameter name: {name}")
+        print(param)
+        print("-----------")
+
     return postprocessor
