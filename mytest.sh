@@ -9,3 +9,4 @@ python tools/plain_train_net.py --eval-only --config-file "configs/smoke_gn_vect
 
 # to change the backbone to be Mobile Net the fellowing should be down:
 #1. /smoke/configure/defaults.py line 76 _C.MODEL.BACKBONE.CONV_BODY = "MobileNetV2" #"DLA-34-DCN"
+#2. make sure the tools/logs file belongs to the right BACKBONE
