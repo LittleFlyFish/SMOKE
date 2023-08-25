@@ -103,7 +103,8 @@ class PostProcessor(nn.Module):
         ], dim=1)
 
         print(result.shape)
-        print(result)
+        print(result[:, -1])
+        print(self.det_threshold)
 
         keep_idx = result[:, -1] > self.det_threshold
         result = result[keep_idx]
