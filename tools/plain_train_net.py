@@ -77,6 +77,7 @@ def main(args):
             cfg, model, save_dir=cfg.OUTPUT_DIR
         )
         ckpt = cfg.MODEL.WEIGHT if args.ckpt is None else args.ckpt
+        print('print out the args.ckpt: ')
         print(args.ckpt)
         _ = checkpointer.load(ckpt, use_latest=args.ckpt is None)
         return run_test(cfg, model)
