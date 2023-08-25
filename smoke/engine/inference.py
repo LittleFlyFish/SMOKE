@@ -19,8 +19,8 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
-            # for name, param in model.named_parameters():
-            #     print(name, param.data)
+            print('Let s see the output ')
+            print(output)
 
             if timer:
                 torch.cuda.synchronize()
