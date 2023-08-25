@@ -24,7 +24,10 @@ class SMOKEHead(nn.Module):
             return {}, dict(hm_loss=loss_heatmap,
                             reg_loss=loss_regression, )
         if not self.training:
+            print('test the model')
+            print(x)
             result = self.post_processor(x, targets)
+            print(result)
 
             return result, {}
 
