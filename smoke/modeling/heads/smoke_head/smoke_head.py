@@ -13,9 +13,7 @@ class SMOKEHead(nn.Module):
         self.cfg = cfg.clone()
         self.predictor = make_smoke_predictor(cfg, in_channels)
         self.loss_evaluator = make_smoke_loss_evaluator(cfg)
-        print('if the post_processor is build')
         self.post_processor = make_smoke_post_processor(cfg)
-        print('already build')
 
     def forward(self, features, targets=None):
         x = self.predictor(features)

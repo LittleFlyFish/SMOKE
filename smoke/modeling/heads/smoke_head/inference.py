@@ -33,6 +33,9 @@ class PostProcessor(nn.Module):
                     size=size)
 
     def forward(self, predictions, targets):
+        print('check this line is running: ')
+        print(predictions)
+
         pred_heatmap, pred_regression = predictions[0], predictions[1]
         batch = pred_heatmap.shape[0]
 
@@ -95,6 +98,8 @@ class PostProcessor(nn.Module):
         scores = scores.view(-1, 1)
         # change dimension back to h,w,l
         pred_dimensions = pred_dimensions.roll(shifts=-1, dims=1)
+
+        print(clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores)
 
         result = torch.cat([
             clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores
