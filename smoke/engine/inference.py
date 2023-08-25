@@ -19,7 +19,8 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
-            print('Let s see the output ')
+            print('Let us see the output ')
+            print(images)
             print(output)
 
             if timer:
