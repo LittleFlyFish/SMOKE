@@ -78,8 +78,6 @@ def main(args):
         )
         ckpt = cfg.MODEL.WEIGHT if args.ckpt is None else args.ckpt
 
-        print('which is the ckpt:')
-        print(args.ckpt)
         # print('Use my own model.pth, the MobileNet BACKBONE')
         # ckpt = "/soe/SMOKE/tools/logs/model_final.pth"
 
