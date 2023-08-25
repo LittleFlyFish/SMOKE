@@ -34,7 +34,6 @@ class PostProcessor(nn.Module):
 
     def forward(self, predictions, targets):
         print('check this line is running: ')
-        print(predictions)
 
         pred_heatmap, pred_regression = predictions[0], predictions[1]
         batch = pred_heatmap.shape[0]
@@ -99,14 +98,13 @@ class PostProcessor(nn.Module):
         # change dimension back to h,w,l
         pred_dimensions = pred_dimensions.roll(shifts=-1, dims=1)
 
-        print(clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores)
-
         result = torch.cat([
             clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores
         ], dim=1)
 
         keep_idx = result[:, -1] > self.det_threshold
         result = result[keep_idx]
+        print(result)
 
         return result
 
