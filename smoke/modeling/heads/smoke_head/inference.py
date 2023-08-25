@@ -107,12 +107,6 @@ class PostProcessor(nn.Module):
 
 
 def make_smoke_post_processor(cfg):
-    print('here is the model test:')
-    print(cfg.MODEL.SMOKE_HEAD.DEPTH_REFERENCE)
-    print(cfg.MODEL.SMOKE_HEAD.DIMENSION_REFERENCE)
-    print(cfg.MODEL.DEVICE)
-    print(cfg.MODEL.SMOKE_HEAD.REGRESSION_HEADS)
-
     smoke_coder = SMOKECoder(
         cfg.MODEL.SMOKE_HEAD.DEPTH_REFERENCE,
         cfg.MODEL.SMOKE_HEAD.DIMENSION_REFERENCE,
