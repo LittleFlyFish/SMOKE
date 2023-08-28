@@ -50,6 +50,9 @@ def inference(
     inference_timer = Timer()
     total_timer.tic()
     predictions = compute_on_dataset(model, data_loader, device, inference_timer)
+    print('predictions are:')
+    print(predictions)
+
     comm.synchronize()
 
     total_time = total_timer.toc()
