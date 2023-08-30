@@ -256,6 +256,8 @@ class KITTIDataset(Dataset):
         if self.is_train:
             with open(os.path.join(self.label_dir, file_name), 'r') as csv_file:
                 reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
+                print("The file name is:")
+                print(self.label_dir)
 
                 for line, row in enumerate(reader):
                     if row["type"] in self.classes:
