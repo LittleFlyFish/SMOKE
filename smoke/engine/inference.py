@@ -53,6 +53,9 @@ def inference(
     print('predictions are:')
     print(predictions)
 
+
+
+
     comm.synchronize()
 
     total_time = total_timer.toc()

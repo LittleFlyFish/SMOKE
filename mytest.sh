@@ -10,3 +10,13 @@ python tools/plain_train_net.py --eval-only --config-file "configs/smoke_gn_vect
 # to change the backbone to be Mobile Net the fellowing should be down:
 #1. /smoke/configure/defaults.py line 76 _C.MODEL.BACKBONE.CONV_BODY = "MobileNetV2" #"DLA-34-DCN"
 #2. make sure the tools/logs file belongs to the right BACKBONE
+
+# How to solve the problem of libjsoncpp.so.19 not found?
+#  ln -s /usr/lib64/libjsoncpp.so.19 /home/soe/anaconda3/envs/kitti_vis/lib/libjsoncpp.so.19
+#  ln -s /usr/lib64/libjsoncpp.so.19 /home/soe/anaconda3/envs/pointcloud/lib/libjsoncpp.so.19
+
+
+# export PATH=/home/soe/Downloads/QTInstall/Tools/QtCreator/lib/Qt/bin:$PATH
+
+#cp /home/soe/anaconda3/envs/pointcloud/lib/libtbb.so.2  /home/soe/anaconda3/envs/kitti_vis/lib
+#export LD_LIBRARY_PATH=/home/soe/anaconda3/envs/kitti_vis/lib:$LD_LIBRARY_PATH
