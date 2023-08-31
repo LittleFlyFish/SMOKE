@@ -3,6 +3,7 @@
 rm smoke/data/datasets/evaluation/kitti/kitti_eval/evaluate_object_3d_offline
 mv evaluate_object_3d_offline.cpp smoke/data/datasets/evaluation/kitti/kitti_eval/
 python tools/plain_train_net.py --eval-only --config-file "configs/smoke_gn_vector.yaml"
+cp tools/logs/inference/kitti_test/data datasets/kitti/pred
 
 # Most config files are under /smoke/config/defaults.py
 
