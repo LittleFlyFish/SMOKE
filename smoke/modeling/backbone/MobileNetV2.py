@@ -70,10 +70,20 @@ class MobileNetV2(nn.Module):
         self.configs=[
             # t, c, n, s
             [1, 16, 1, 1],
-            [6, 24, 2, 2],
-            [6, 32, 3, 1],
+            [6, 64, 2, 2],
+            [6, 128, 3, 1],
             [6, 64, 2, 1]
         ]
+
+        # # The initial mobileNet config
+        # self.configs = [
+        #     # t, c, n, s
+        #     [1, 16, 1, 1],
+        #     [6, 24, 2, 2],
+        #     [6, 32, 3, 1],
+        #     [6, 64, 2, 1]
+        # ]
+
         # The original configs
         # self.configs=[
         #     # t, c, n, s
