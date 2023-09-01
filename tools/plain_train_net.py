@@ -21,9 +21,6 @@ from smoke.engine.test_net import run_test
 
 def train(cfg, model, device, distributed):
 
-    print('here is the device')
-    print(device)
-
     optimizer = make_optimizer(cfg, model)
     scheduler = make_lr_scheduler(cfg, optimizer)
 
