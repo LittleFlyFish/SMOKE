@@ -91,6 +91,7 @@ class MobileNetV2(nn.Module):
         layers = []
         input_channel = 32
         for t, c, n, s in self.configs:
+            print('The mobilenet structure:', (t, c, n, s))
             for i in range(n):
                 stride = s if i == 0 else 1
                 layers.append(InvertedBlock(ch_in=input_channel, ch_out=c, expand_ratio=t, stride=stride))
