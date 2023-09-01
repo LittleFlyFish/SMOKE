@@ -20,6 +20,10 @@ from smoke.engine.test_net import run_test
 
 
 def train(cfg, model, device, distributed):
+
+    print('here is the device')
+    print(device)
+
     optimizer = make_optimizer(cfg, model)
     scheduler = make_lr_scheduler(cfg, optimizer)
 
@@ -40,6 +44,8 @@ def train(cfg, model, device, distributed):
     )
 
     checkpoint_period = cfg.SOLVER.CHECKPOINT_PERIOD
+
+
 
     do_train(
         cfg,
