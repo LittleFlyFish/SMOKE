@@ -44,7 +44,7 @@ class Checkpointer():
 
         save_file = os.path.join(self.save_dir, "{}.pth".format(name))
         self.logger.info("Saving checkpoint to {}".format(save_file))
-        torch.save(data, save_file)
+        torch.save(data, save_file, _use_new_zipfile_serialization=False)
         self.tag_last_checkpoint(save_file)
 
     def load(self, f=None, use_latest=True):
