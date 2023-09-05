@@ -112,10 +112,10 @@ def do_train(
                     memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0
                 )
             )
+            if losses < best_loss:
+                best_loss = losses
+                checkpointer.save("model_best", **arguments)
         # fixme: do we need checkpoint_period here
-        if losses < best_loss:
-            best_loss = losses
-            checkpointer.save("model_best", **arguments)
         if iteration in cfg.SOLVER.STEPS:
             checkpointer.save("model_{:07d}".format(iteration), **arguments)
         if iteration == max_iter:
