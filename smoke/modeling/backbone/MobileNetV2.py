@@ -70,8 +70,8 @@ class MobileNetV2(nn.Module):
         self.configs=[
             # t, c, n, s
             [1, 16, 2, 1], # increase n won't affect the output size of img
-            [6, 64, 3, 2], # 64
-            [6, 128, 3, 1],
+            [6, 64, 3, 2], # increase n won't affect the output size of img
+            [6, 128, 4, 1], #
             [6, 64, 2, 1]
         ]
 
