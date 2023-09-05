@@ -69,8 +69,8 @@ class MobileNetV2(nn.Module):
 
         self.configs=[
             # t, c, n, s
-            [1, 32, 1, 1], # 16
-            [6, 128, 2, 2], # 64
+            [1, 16, 1, 1], # 16
+            [6, 64, 2, 2], # 64
             [6, 128, 3, 1],
             [6, 64, 2, 1]
         ]
@@ -117,9 +117,14 @@ class MobileNetV2(nn.Module):
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
 
     def forward(self, x):
+        print('The model size is:')
+        print(x.shape)
         x = self.stem_conv(x)
+        print(x.shape)
         x = self.layers(x)
+        print(x.shape)
         x = self.last_conv(x)
+        print(x.shape)
         # x = self.avg_pool(x).view(-1, 1280)
         # x = self.classifier(x)
         return x
