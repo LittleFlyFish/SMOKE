@@ -10,7 +10,7 @@ DATASETS:
   TRAIN_SPLIT: "trainval"
   TEST_SPLIT: "test"
 SOLVER:
-  BASE_LR: 7e-3  # 2.5e-4 for DLA training
+  BASE_LR: 1e-4  # 2.5e-4 for DLA training
   STEPS: (100, 5000, 10000, 15000, 20000) # THe original is 10000, 18000
   MAX_ITERATION: 25000 # 25000
   IMS_PER_BATCH: 32
