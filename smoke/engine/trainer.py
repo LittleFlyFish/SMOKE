@@ -57,7 +57,7 @@ def do_train(
     model.train()
     start_training_time = time.time()
     end = time.time()
-    best_loss = float('inf')
+    best_loss = 16
     writer = SummaryWriter('./datasets/kitti/runs')
     # writer.add_graph(model, input_to_model=torch.rand(32, 3, 384, 1280))
 
