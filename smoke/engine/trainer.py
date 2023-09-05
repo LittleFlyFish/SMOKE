@@ -57,6 +57,7 @@ def do_train(
     model.train()
     start_training_time = time.time()
     end = time.time()
+    best_loss = float('inf')
     writer = SummaryWriter('./datasets/kitti/runs')
     # writer.add_graph(model, input_to_model=torch.rand(32, 3, 384, 1280))
 
@@ -112,6 +113,9 @@ def do_train(
                 )
             )
         # fixme: do we need checkpoint_period here
+        if losses < best_loss:
+            best_loss = losses
+            checkpointer.save("model_best", **arguments)
         if iteration in cfg.SOLVER.STEPS:
             checkpointer.save("model_{:07d}".format(iteration), **arguments)
         if iteration == max_iter:
