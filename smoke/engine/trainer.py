@@ -57,7 +57,7 @@ def do_train(
     model.train()
     start_training_time = time.time()
     end = time.time()
-    writer = SummaryWriter('./runs')
+    writer = SummaryWriter('./datasets/kitti/runs')
     # writer.add_graph(model, input_to_model=torch.rand(32, 3, 384, 1280))
 
     for data, iteration in zip(data_loader, range(start_iter, max_iter)):
