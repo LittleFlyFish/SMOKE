@@ -7,7 +7,7 @@ import torch.distributed as dist
 
 from smoke.utils.metric_logger import MetricLogger
 from smoke.utils.comm import get_world_size
-from torch.utils.tensorboard import SummaryWriter
+from tensorboardX import SummaryWriter
 
 
 
