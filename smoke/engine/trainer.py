@@ -7,6 +7,8 @@ import torch.distributed as dist
 
 from smoke.utils.metric_logger import MetricLogger
 from smoke.utils.comm import get_world_size
+from torch.utils.tensorboard import SummaryWriter
+
 
 
 def reduce_loss_dict(loss_dict):
@@ -55,6 +57,8 @@ def do_train(
     model.train()
     start_training_time = time.time()
     end = time.time()
+    writer = SummaryWriter('./runs')
+    writer.add_graph(model, input_to_model=torch.rand(32, 3, 1242, 375))
 
     for data, iteration in zip(data_loader, range(start_iter, max_iter)):
         torch.cuda.empty_cache()
@@ -63,6 +67,8 @@ def do_train(
         arguments["iteration"] = iteration
 
         images = data["images"].to(device)
+        print(images.image_sizes)
+
         targets = [target.to(device) for target in data["targets"]]
 
         loss_dict = model(images, targets)
@@ -85,6 +91,8 @@ def do_train(
 
         eta_seconds = meters.time.global_avg * (max_iter - iteration)
         eta_string = str(datetime.timedelta(seconds=int(eta_seconds)))
+
+        writer.add_scalar("loss", losses.item(), iteration)  # 日志中记录x在第step i 的值
 
         if iteration % 10 == 0 or iteration == max_iter:
             logger.info(
@@ -113,6 +121,7 @@ def do_train(
         # if iteration % evaluate_period == 0:
         # test_net.main()
 
+    writer.close()
     total_training_time = time.time() - start_training_time
     total_time_str = str(datetime.timedelta(seconds=total_training_time))
     logger.info(
@@ -120,3 +129,4 @@ def do_train(
             total_time_str, total_training_time / (max_iter)
         )
     )
+
