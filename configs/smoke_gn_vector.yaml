@@ -13,7 +13,7 @@ SOLVER:
   BASE_LR: 1e-2  # 2.5e-4 for DLA training
   STEPS: (100, 18000) # THe original is 10000, 18000
   MAX_ITERATION: 25000 # 25000
-  IMS_PER_BATCH: 2
+  IMS_PER_BATCH: 1
 
 
 
