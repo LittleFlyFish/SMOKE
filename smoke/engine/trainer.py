@@ -58,7 +58,7 @@ def do_train(
     start_training_time = time.time()
     end = time.time()
     writer = SummaryWriter('./runs')
-    # writer.add_graph(model, input_to_model=torch.rand(32, 3, 1242, 375))
+    # writer.add_graph(model, input_to_model=torch.rand(32, 3, 384, 1280))
 
     for data, iteration in zip(data_loader, range(start_iter, max_iter)):
         torch.cuda.empty_cache()
@@ -67,7 +67,6 @@ def do_train(
         arguments["iteration"] = iteration
 
         images = data["images"].to(device)
-        print(images.image_sizes)
 
         targets = [target.to(device) for target in data["targets"]]
 
