@@ -27,7 +27,7 @@ class Checkpointer():
             logger = logging.getLogger(__name__)
         self.logger = logger
 
-    def save(self, name, **kwargs):
+    def save(self, name,show=True, **kwargs):
         if not self.save_dir:
             return
 
@@ -43,8 +43,10 @@ class Checkpointer():
         data.update(kwargs)
 
         save_file = os.path.join(self.save_dir, "{}.pth".format(name))
-        self.logger.info("Saving checkpoint to {}".format(save_file))
-        torch.save(data, save_file)
+        if show:
+            self.logger.info("Saving checkpoint to {}".format(save_file))
+        torch.save(data, save_file, _use_new_zipfile_serialization=False) # for docker in Server
+        # torch.save(data, save_file) # For docker in desktop, lower torch version
         self.tag_last_checkpoint(save_file)
 
     def load(self, f=None, use_latest=True):

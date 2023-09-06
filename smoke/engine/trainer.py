@@ -7,6 +7,8 @@ import torch.distributed as dist
 
 from smoke.utils.metric_logger import MetricLogger
 from smoke.utils.comm import get_world_size
+from tensorboardX import SummaryWriter
+
 
 
 def reduce_loss_dict(loss_dict):
@@ -55,6 +57,9 @@ def do_train(
     model.train()
     start_training_time = time.time()
     end = time.time()
+    best_loss = 16
+    writer = SummaryWriter('./datasets/kitti/runs')
+    # writer.add_graph(model, input_to_model=torch.rand(32, 3, 384, 1280))
 
     for data, iteration in zip(data_loader, range(start_iter, max_iter)):
         torch.cuda.empty_cache()
@@ -63,6 +68,7 @@ def do_train(
         arguments["iteration"] = iteration
 
         images = data["images"].to(device)
+
         targets = [target.to(device) for target in data["targets"]]
 
         loss_dict = model(images, targets)
@@ -86,6 +92,8 @@ def do_train(
         eta_seconds = meters.time.global_avg * (max_iter - iteration)
         eta_string = str(datetime.timedelta(seconds=int(eta_seconds)))
 
+        writer.add_scalar("loss", losses.item(), iteration)  # 日志中记录x在第step i 的值
+
         if iteration % 10 == 0 or iteration == max_iter:
             logger.info(
                 meters.delimiter.join(
@@ -104,6 +112,9 @@ def do_train(
                     memory=torch.cuda.max_memory_allocated() / 1024.0 / 1024.0
                 )
             )
+        if iteration % 100 == 0 and losses < best_loss:
+            best_loss = losses
+            checkpointer.save("model_best", show= False, **arguments)
         # fixme: do we need checkpoint_period here
         if iteration in cfg.SOLVER.STEPS:
             checkpointer.save("model_{:07d}".format(iteration), **arguments)
@@ -113,6 +124,7 @@ def do_train(
         # if iteration % evaluate_period == 0:
         # test_net.main()
 
+    writer.close()
     total_training_time = time.time() - start_training_time
     total_time_str = str(datetime.timedelta(seconds=total_training_time))
     logger.info(
@@ -120,3 +132,4 @@ def do_train(
             total_time_str, total_training_time / (max_iter)
         )
     )
+

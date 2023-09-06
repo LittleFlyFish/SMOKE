@@ -1,5 +1,5 @@
 MODEL:
-  WEIGHT: # "catalog://ImageNetPretrained/DLA34" # "/soe/SMOKE/tools/Mobile_logs/model_final.pth" #
+  WEIGHT: # "/soe/SMOKE/tools/logs/model_best.pth"  # "catalog://ImageNetPretrained/DLA34" #
 INPUT:
   FLIP_PROB_TRAIN: 0.5
   SHIFT_SCALE_PROB_TRAIN: 0.3
@@ -10,8 +10,8 @@ DATASETS:
   TRAIN_SPLIT: "trainval"
   TEST_SPLIT: "test"
 SOLVER:
-  BASE_LR: 5e-5  # 2.5e-4 for DLA training
-  STEPS: (100, 18000) # THe original is 10000, 18000
+  BASE_LR: 1e-2  # 2.5e-4 for DLA training
+  STEPS: (10, 1000, 5000, 10000, 15000, 20000) # THe original is 10000, 18000
   MAX_ITERATION: 25000 # 25000
   IMS_PER_BATCH: 32
 

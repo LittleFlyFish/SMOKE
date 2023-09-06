@@ -122,7 +122,7 @@ class KITTIDataset(Dataset):
             )
         except:
             print('This image has error:', img_path)
-            img = Image.open('datasets/kitti/testing/image_2/000088.png')
+            img = Image.open('datasets/kitti/training/image_2/000088.png')
 
         anns, K = self.load_annotations(idx)
 
