@@ -72,7 +72,7 @@ class MobileNetV2(nn.Module):
             [1, 16, 1, 1], # increase n won't affect the output size of img
             [6, 32, 2, 2], # increase n won't affect the output size of img
             [6, 64, 3, 1], # increase n won't affect the output size of img
-            [6, 64, 4, 1], # increase n won't affect the output size of img
+            [6, 64, 5, 1], # increase n won't affect the output size of img
         ]
 
         # # The initial mobileNet config
