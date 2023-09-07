@@ -72,7 +72,7 @@ class MobileNetV2(nn.Module):
             [1, 16, 1, 1],
             [6, 32, 2, 2],
             [6, 64, 3, 1],
-            [6, 64, 5, 1]
+            [6, 64, 8, 1]
         ]
 
         # # The initial mobileNet config
