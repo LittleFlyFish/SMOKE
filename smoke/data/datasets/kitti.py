@@ -270,33 +270,17 @@ class KITTIDataset(Dataset):
                             "rot_y": float(row["ry"])
                         })
 
-        # # The Original code
-        # # get camera intrinsic matrix K
-        # with open(os.path.join(self.calib_dir, file_name), 'r') as csv_file:
-        #     reader = csv.reader(csv_file, delimiter=' ')
-        #     for line, row in enumerate(reader):
-        #         if row[0] == 'P2:':
-        #             K = row[1:]
-        #             K = [float(i) for i in K]
-        #             K = np.array(K, dtype=np.float32).reshape(3, 4)
-        #             K = K[:3, :3]
-        #             break
-
-        with open(os.path.join(self.label_dir, file_name), 'r') as csv_file:
-            reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
-
+        # The Original code
+        # get camera intrinsic matrix K
+        with open(os.path.join(self.calib_dir, file_name), 'r') as csv_file:
+            reader = csv.reader(csv_file, delimiter=' ')
             for line, row in enumerate(reader):
-                if row["type"] in self.classes:
-                    annotations.append({
-                        "class": row["type"],
-                        "label": TYPE_ID_CONVERSION[row["type"]],
-                        "truncation": float(row["truncated"]),
-                        "occlusion": float(row["occluded"]),
-                        "alpha": float(row["alpha"]),
-                        "dimensions": [float(row['dl']), float(row['dh']), float(row['dw'])],
-                        "locations": [float(row['lx']), float(row['ly']), float(row['lz'])],
-                        "rot_y": float(row["ry"])
-                    })
-            K = np.zeros((3, 3))
+                if row[0] == 'P2:':
+                    K = row[1:]
+                    K = [float(i) for i in K]
+                    K = np.array(K, dtype=np.float32).reshape(3, 4)
+                    K = K[:3, :3]
+                    break
+
 
         return annotations, K
