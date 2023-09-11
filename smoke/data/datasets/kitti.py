@@ -124,8 +124,6 @@ class KITTIDataset(Dataset):
             print('This image has error:', img_path)
             img = Image.open('datasets/kitti/training/image_2/000088.png')
 
-        print('here is the problem')
-        print(idx)
         anns, K = self.load_annotations(idx)
 
         center = np.array([i / 2 for i in img.size], dtype=np.float32)
@@ -255,7 +253,7 @@ class KITTIDataset(Dataset):
         fieldnames = ['type', 'truncated', 'occluded', 'alpha', 'xmin', 'ymin', 'xmax', 'ymax', 'dh', 'dw',
                       'dl', 'lx', 'ly', 'lz', 'ry']
 
-        if self.is_train:
+        if self.is_train = False:
             with open(os.path.join(self.label_dir, file_name), 'r') as csv_file:
                 reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
 
