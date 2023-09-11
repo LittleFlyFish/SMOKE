@@ -147,6 +147,8 @@ def build_test_loader(cfg, is_train=False):
             batch_sampler=batch_sampler,
             collate_fn=collator,
         )
+        print('here is the dataloader')
+        print(data_loader)
         data_loaders.append(data_loader)
 
     return data_loader
