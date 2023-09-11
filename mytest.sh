@@ -2,8 +2,12 @@
 
 rm smoke/data/datasets/evaluation/kitti/kitti_eval/evaluate_object_3d_offline
 mv evaluate_object_3d_offline.cpp smoke/data/datasets/evaluation/kitti/kitti_eval/
+
+# How to test the model.pth and plot the video demos
 python tools/plain_train_net.py --eval-only --config-file "configs/smoke_gn_vector.yaml"
 cp tools/logs/inference/kitti_test/data datasets/kitti/pred
+python ShortZeros.py
+python Images2Video.py
 
 # Most config files are under /smoke/config/defaults.py
 
