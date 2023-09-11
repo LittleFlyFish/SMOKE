@@ -124,6 +124,8 @@ class KITTIDataset(Dataset):
             print('This image has error:', img_path)
             img = Image.open('datasets/kitti/training/image_2/000088.png')
 
+        print('here is the problem')
+        print(idx)
         anns, K = self.load_annotations(idx)
 
         center = np.array([i / 2 for i in img.size], dtype=np.float32)
