@@ -253,7 +253,7 @@ class KITTIDataset(Dataset):
         fieldnames = ['type', 'truncated', 'occluded', 'alpha', 'xmin', 'ymin', 'xmax', 'ymax', 'dh', 'dw',
                       'dl', 'lx', 'ly', 'lz', 'ry']
 
-        if self.is_train = False:
+        if self.is_train == False:
             with open(os.path.join(self.label_dir, file_name), 'r') as csv_file:
                 reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
 
