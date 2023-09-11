@@ -297,6 +297,6 @@ class KITTIDataset(Dataset):
                         "locations": [float(row['lx']), float(row['ly']), float(row['lz'])],
                         "rot_y": float(row["ry"])
                     })
-            K = np.zeros(3,3)
+            K = np.zeros((3, 3))
 
         return annotations, K
