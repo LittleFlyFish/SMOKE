@@ -272,10 +272,9 @@ class KITTIDataset(Dataset):
 
         # The Original code
         # get camera intrinsic matrix K
+        file_name = '000001.txt'
         with open(os.path.join(self.calib_dir, file_name), 'r') as csv_file:
             reader = csv.reader(csv_file, delimiter=' ')
-            print(file_name)
-            print(reader)
             for line, row in enumerate(reader):
                 if row[0] == 'P2:':
                     K = row[1:]
