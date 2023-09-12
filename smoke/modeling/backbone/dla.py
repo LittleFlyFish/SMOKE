@@ -275,6 +275,7 @@ class DLA(nn.Module):
         self.ida_up(y, 0, len(y))
 
         # todo: this can be further cleaned
+        print(y[-1])
         return y[-1]
 
 
