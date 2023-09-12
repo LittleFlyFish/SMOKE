@@ -269,11 +269,10 @@ class DLA(nn.Module):
         y = []
         for i in range(self.last_level - self.first_level):
             y.append(x[i].clone())
-        print(y)
         self.ida_up(y, 0, len(y))
 
         # todo: this can be further cleaned
-        print(y)
+        print(y[-1])
         return y[-1]
 
 
