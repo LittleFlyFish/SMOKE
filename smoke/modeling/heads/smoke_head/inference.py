@@ -121,9 +121,9 @@ def make_smoke_post_processor(cfg):
     )
 
     # Print the parameters
-    print("I need to know if this line is working")
     print("test if this model is running")
     for name, param in postprocessor.named_parameters():
+        print("there is name and param here:")
         print(f"Parameter name: {name}")
         print(param)
         print("-----------")
