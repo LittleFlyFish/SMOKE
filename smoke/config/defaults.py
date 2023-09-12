@@ -73,7 +73,7 @@ _C.MODEL.BACKBONE = CN()
 
 # The backbone conv body to use
 # The string must match a function that is imported in modeling.model_builder
-_C.MODEL.BACKBONE.CONV_BODY = "DLA-34-DCN" # "MobileNetV2" #
+_C.MODEL.BACKBONE.CONV_BODY = "DLA-34-DCN" # "MobileNetV2" #cp -r
 
 # Add StopGrad at a specified stage so the bottom layers are frozen
 _C.MODEL.BACKBONE.FREEZE_CONV_BODY_AT = 0
@@ -154,7 +154,7 @@ _C.TEST.PRED_2D = True
 
 # Number of detections per image
 _C.TEST.DETECTIONS_PER_IMG = 50
-_C.TEST.DETECTIONS_THRESHOLD = 0.001 # 0.25
+_C.TEST.DETECTIONS_THRESHOLD = 0.05 # 0.25
 
 
 # ---------------------------------------------------------------------------- #
