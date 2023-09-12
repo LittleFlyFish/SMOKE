@@ -101,7 +101,7 @@ class PostProcessor(nn.Module):
         ], dim=1)
 
         print('here is the threshold impact')
-        print(result)
+        print(result[:, -1])
         keep_idx = result[:, -1] > self.det_threshold
         result = result[keep_idx]
         print(result)
