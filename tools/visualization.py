@@ -266,8 +266,6 @@ if __name__ == "__main__":
             #         n_obj += 1
             # draw out the predicted text img data
             save_folder = save_path + "/KITTI_3D_" + split_set + "_Pred"
-            if not os.path.exists(save_folder):
-                os.makedirs(save_folder)
             if img is None:
                 continue
             show_predictions_with_boxes(save_folder, img, objects_pred, calib, True, True, data_idx)
