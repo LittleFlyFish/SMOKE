@@ -100,11 +100,8 @@ class PostProcessor(nn.Module):
             clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores
         ], dim=1)
 
-        print('here is the threshold impact')
-        print(result[:, -1])
         keep_idx = result[:, -1] > self.det_threshold
         result = result[keep_idx]
-        print(result)
         return result
 
 
