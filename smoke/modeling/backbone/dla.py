@@ -262,15 +262,21 @@ class DLA(nn.Module):
                             norm_func=norm_func)
 
     def forward(self, x):
+        print('model test ')
+        print(x)
         x = self.base(x)
+        print(x)
         x = self.dla_up(x)
+        print(x)
 
         y = []
         for i in range(self.last_level - self.first_level):
             y.append(x[i].clone())
+        print(y)
         self.ida_up(y, 0, len(y))
 
         # todo: this can be further cleaned
+        print(y)
         return y[-1]
 
 
