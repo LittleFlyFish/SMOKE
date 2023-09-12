@@ -263,11 +263,8 @@ class DLA(nn.Module):
 
     def forward(self, x):
         print('model test ')
-        print(x)
         x = self.base(x)
-        print(x)
         x = self.dla_up(x)
-        print(x)
 
         y = []
         for i in range(self.last_level - self.first_level):
