@@ -20,9 +20,6 @@ def compute_on_dataset(model, data_loader, device, timer=None):
             if timer:
                 timer.tic()
             output = model(images, targets)
-            print('see what happen here')
-            print(output)
-            print(image_ids)
 
             if timer:
                 torch.cuda.synchronize()
