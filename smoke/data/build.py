@@ -148,11 +148,6 @@ def build_test_loader(cfg, is_train=False):
             collate_fn=collator,
         )
 
-        for _, batch in enumerate(data_loader):
-            images, targets, image_ids = batch["images"], batch["targets"], batch["img_ids"]
-            print('test the data_loader')
-            print(image_ids)
-
         data_loaders.append(data_loader)
 
     return data_loader
