@@ -100,8 +100,11 @@ class PostProcessor(nn.Module):
             clses, pred_alphas, box2d, pred_dimensions, pred_locations, pred_rotys, scores
         ], dim=1)
 
+        print('here is the threshold impact')
+        print(result)
         keep_idx = result[:, -1] > self.det_threshold
         result = result[keep_idx]
+        print(result)
         return result
 
 
@@ -121,9 +124,7 @@ def make_smoke_post_processor(cfg):
     )
 
     # Print the parameters
-    print("test if this model is running")
     for name, param in postprocessor.named_parameters():
-        print("there is name and param here:")
         print(f"Parameter name: {name}")
         print(param)
         print("-----------")
