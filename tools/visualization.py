@@ -240,7 +240,7 @@ def show_image_with_boxes(save_folder, img, objects, calib, count=0):
 
 if __name__ == "__main__":
     save_path = '/mount/data/Documents/kitti/Results' # '/soe/SMOKE/datasets/kitti/Results' #
-    root_dir =   '/home/soe/Documents/kitti' # '/soe/SMOKE/datasets/kitti' # training and testing are under it
+    root_dir = '/home/soe/Documents/kitti' # '/soe/SMOKE/datasets/kitti' # training and testing are under it
 
     set_label = ['training', 'testing']
     split_set = set_label[1]
