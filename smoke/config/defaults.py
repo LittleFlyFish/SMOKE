@@ -154,7 +154,7 @@ _C.TEST.PRED_2D = True
 
 # Number of detections per image
 _C.TEST.DETECTIONS_PER_IMG = 50
-_C.TEST.DETECTIONS_THRESHOLD = 0.15 # 0.25
+_C.TEST.DETECTIONS_THRESHOLD = 0.25 # 0.25
 
 
 # ---------------------------------------------------------------------------- #
