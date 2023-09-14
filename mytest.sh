@@ -16,6 +16,7 @@ python Images2Video.py
 ## plain_train_net.py line 86, define which ckpt is loaded
 ## config/defaults.py line 157, define the threshold
 ## config/defaults.py line 76, define the Model is DLA or Mobile
+## /smoke/data/datasets/kitti.py This image has errors
 
 
 #### The problem could be the Image.Open, most image has problem in annotations or image files. need to check this.
