@@ -83,8 +83,6 @@ def main(args):
 
         # print('Use my own model.pth, the MobileNet BACKBONE')
         # ckpt = "/soe/SMOKE/tools/logs/model_final.pth"
-        print('The model ckpt is:')
-        print(ckpt)
         args.ckpt = "/soe/SMOKE/tools/logs/model_best.pth"
 
         _ = checkpointer.load(ckpt, use_latest=args.ckpt is None)
