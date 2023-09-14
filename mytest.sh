@@ -10,6 +10,16 @@ python visualization.py
 python ShortZeros.py
 python Images2Video.py
 
+###########################################################################################
+## Important changes:
+## check_point.py line 49, define if the training need save in pth
+## plain_train_net.py line 86, define which ckpt is loaded
+## config/defaults.py line 157, define the threshold
+## config/defaults.py line 76, define the Model is DLA or Mobile
+
+
+#### The problem could be the Image.Open, most image has problem in annotations or image files. need to check this.
+
 # Most config files are under /smoke/config/defaults.py
 
 
