@@ -85,6 +85,7 @@ def main(args):
         # ckpt = "/soe/SMOKE/tools/logs/model_final.pth"
         print('The model ckpt is:')
         print(ckpt)
+        print(args.ckpt)
 
         _ = checkpointer.load(ckpt, use_latest=args.ckpt is None)
         return run_test(cfg, model)
