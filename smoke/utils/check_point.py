@@ -45,8 +45,8 @@ class Checkpointer():
         save_file = os.path.join(self.save_dir, "{}.pth".format(name))
         if show:
             self.logger.info("Saving checkpoint to {}".format(save_file))
-        # torch.save(data, save_file, _use_new_zipfile_serialization=False) # for docker in Server
-        torch.save(data, save_file) # For docker in desktop, lower torch version
+        torch.save(data, save_file, _use_new_zipfile_serialization=False) # for docker in Server
+        # torch.save(data, save_file) # For docker in desktop, lower torch version
         self.tag_last_checkpoint(save_file)
 
     def load(self, f=None, use_latest=True):
@@ -92,7 +92,7 @@ class Checkpointer():
             f.write(last_filename)
 
     def _load_file(self, f):
-        return torch.jit.load(f, map_location=torch.device("cpu"))
+        return torch.load(f, map_location=torch.device("cpu"))
 
     def _load_model(self, checkpoint):
         load_state_dict(self.model, checkpoint.pop("model"))
