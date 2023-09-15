@@ -229,8 +229,6 @@ class KITTIDataset(Dataset):
             #  reader = csv.DictReader(csv_file, delimiter=' ', fieldnames=fieldnames)
             reader = csv.reader(csv_file, delimiter=' ')
             for line, row in enumerate(reader):
-                print(line)
-                print(row)
                 if row[0] == 'P2:':
                     K = row[1:]
                     K = [float(i) for i in K]
