@@ -1,13 +1,13 @@
 import shutil
 
 # Path to the file to be copied
-source_file =  '/home/soe/Documents/kitti/testing/calib/calibration.txt' # '/smoke/utils/2011_9_26.txt'
+source_file =  '/home/soe/Documents/kitti/testing/calibration.txt' # '/smoke/utils/2011_9_26.txt'
 
 # Path to the destination folder
 destination_folder = '/home/soe/Documents/kitti/testing/calib'
 
 # Number of files to be generated
-num_files = 210 # The number of images in image_2 folder
+num_files = 314 # The number of images in image_2 folder
 
 # Loop to generate and copy files
 for i in range(num_files):
