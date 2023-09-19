@@ -32,6 +32,8 @@ def train(cfg, model, device, distributed):
     checkpointer = DetectronCheckpointer(
         cfg, model, optimizer, scheduler, output_dir, save_to_disk
     )
+    print('cfg.MODEL.WEIGHT:')
+    print(cfg.MODEL.WEIGHT)
     extra_checkpoint_data = checkpointer.load(cfg.MODEL.WEIGHT)
     arguments.update(extra_checkpoint_data)
 
