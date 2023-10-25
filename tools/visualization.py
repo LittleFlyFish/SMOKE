@@ -272,28 +272,28 @@ if __name__ == "__main__":
             if img is None:
                 continue
             show_predictions_with_boxes(save_folder, img, objects_pred, calib, True, True, data_idx)
-        if split_set == 'training':
-            dataset = kitti_object(root_dir, split='training', args=None)
-            print(len(dataset))
-            for data_idx in range(len(dataset)):
-                # load the information of 3D box from txt files
-                objects = dataset.get_label_objects(
-                    data_idx)  # it will get from label_2 file for the ground truth 3D bounding box
-                objects_pred = dataset.get_pred_objects(data_idx)
-                calib = dataset.get_calibration(data_idx)
-                img = dataset.get_image(data_idx)
+    if split_set == 'training':
+        dataset = kitti_object(root_dir, split='training', args=None)
+        print(len(dataset))
+        for data_idx in range(len(dataset)):
+            # load the information of 3D box from txt files
+            objects = dataset.get_label_objects(
+                data_idx)  # it will get from label_2 file for the ground truth 3D bounding box
+            objects_pred = dataset.get_pred_objects(data_idx)
+            calib = dataset.get_calibration(data_idx)
+            img = dataset.get_image(data_idx)
 
-                # extract each objects from the data
-                n_obj = 0
-                # for obj in objects:
-                #     if obj.type != "DontCare":
-                #         print("=== {} object ===".format(n_obj + 1))
-                #         obj.print_object()
-                #         n_obj += 1
-                # draw out the predicted text img data
-                save_folder = save_path + "/KITTI_3D_" + split_set + "_PredAndGT"
-                if not os.path.exists(save_folder):
-                    os.makedirs(save_folder)
-                print(save_folder)
-                show_predAndGT_with_boxes(save_folder, img, objects_pred, objects, calib, data_idx)
+            # extract each objects from the data
+            n_obj = 0
+            # for obj in objects:
+            #     if obj.type != "DontCare":
+            #         print("=== {} object ===".format(n_obj + 1))
+            #         obj.print_object()
+            #         n_obj += 1
+            # draw out the predicted text img data
+            save_folder = save_path + "/KITTI_3D_" + split_set + "_PredAndGT"
+            if not os.path.exists(save_folder):
+                os.makedirs(save_folder)
+            print(save_folder)
+            show_predAndGT_with_boxes(save_folder, img, objects_pred, objects, calib, data_idx)
 
