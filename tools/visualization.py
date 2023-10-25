@@ -9,7 +9,7 @@ import os, math
 from scipy.optimize import leastsq
 from PIL import Image
 import sys
-sys.path.append('/home/soe/Projects/SMOKE')
+sys.path.append('/media/data1/yanran/SMOKE')
 import smoke.utils.kitti_util as utils
 
 class kitti_object(object):
@@ -189,6 +189,8 @@ def show_predAndGT_with_boxes(save_folder,img, objects_pred, objects, calib, cou
             # Specify the desired file path and extension
     save_path = save_folder + '/' + str(count).zfill(6) + ".jpg"
     cv2.imwrite(save_path, img1)
+    print(save_path)
+    print(img1)
     return img1
 def show_image_with_boxes(save_folder, img, objects, calib, count=0):
     img1 = np.copy(img)
@@ -234,18 +236,19 @@ def show_image_with_boxes(save_folder, img, objects, calib, count=0):
 
     save_path = os.path.join(save_folder, str(count).zfill(6) + ".jpg")
     cv2.imwrite(save_path, img2)
-
     return img1, img2
 
 
 if __name__ == "__main__":
-    save_path = '/mount/data/Documents/kitti/Results' # '/soe/SMOKE/datasets/kitti/Results' #
-    root_dir = '/home/soe/Documents/kitti' # '/soe/SMOKE/datasets/kitti' # training and testing are under it
+    save_path =  '/media/data1/yanran/SMOKE/datasets/kitti/Results' #
+    root_dir =  '/media/data1/yanran/SMOKE/datasets/kitti' # training and testing are under it
 
     set_label = ['training', 'testing']
-    split_set = set_label[1]
+    split_set = set_label[0]
+    print(split_set)
 
     if split_set == 'testing':
+        print('testing')
         dataset = kitti_object(root_dir, split='testing', args=None)
         for data_idx in range(len(dataset)):
             # load the information of 3D box from txt files
@@ -270,7 +273,8 @@ if __name__ == "__main__":
                 continue
             show_predictions_with_boxes(save_folder, img, objects_pred, calib, True, True, data_idx)
         if split_set == 'training':
-            dataset = kitti_object(root_dir, split='testing', args=None)
+            dataset = kitti_object(root_dir, split='training', args=None)
+            print(len(dataset))
             for data_idx in range(len(dataset)):
                 # load the information of 3D box from txt files
                 objects = dataset.get_label_objects(
@@ -290,5 +294,6 @@ if __name__ == "__main__":
                 save_folder = save_path + "/KITTI_3D_" + split_set + "_PredAndGT"
                 if not os.path.exists(save_folder):
                     os.makedirs(save_folder)
+                print(save_folder)
                 show_predAndGT_with_boxes(save_folder, img, objects_pred, objects, calib, data_idx)
 
