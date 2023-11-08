@@ -313,7 +313,6 @@ if __name__ == "__main__":
             objects_pred = dataset.get_pred_objects(data_idx)
             calib = dataset.get_calibration(data_idx)
             img = dataset.get_image(data_idx)
-            print(img.dtype)
             print(data_idx)
 
             # extract each objects from the data
