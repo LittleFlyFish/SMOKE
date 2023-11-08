@@ -28,7 +28,7 @@ def kitti_evaluation(
             logger=logger
         )
 
-root = '/soe/SMOKE/'
+root = "/home/soe/Documents/MyProjects/Polysurance/SMOKE/" # '/soe/SMOKE/'
 def do_kitti_detection_evaluation(dataset,
                                   predictions,
                                   output_folder,

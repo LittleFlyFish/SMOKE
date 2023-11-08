@@ -632,7 +632,6 @@ def compute_box_3d(obj, P):
 
     # project the 3d bounding box into the image plane
     corners_2d = project_to_image(np.transpose(corners_3d), P)
-    # print 'corners_2d: ', corners_2d
     return corners_2d, np.transpose(corners_3d)
 
 

@@ -110,6 +110,29 @@ class kitti_object(object):
         depth_filename = os.path.join(self.depth_dir, "%06d.txt" % (idx))
         return os.path.exists(depth_filename)
 
+def resize_coordinates(corners_2d, original_size, new_size):
+    """
+    Adjusts the coordinates of a 2D bounding box after an image is resized.
+
+    Parameters:
+    corners_2d (numpy.ndarray): The original coordinates, as an array with shape (8, 2).
+    original_size (tuple): The original image size (width, height).
+    new_size (tuple): The new image size (width, height).
+
+    Returns:
+    numpy.ndarray: The adjusted coordinates, as an array with shape (8, 2).
+    """
+
+    # Calculate the ratios for width and height
+    width_ratio = new_size[0] / original_size[0]
+    height_ratio = new_size[1] / original_size[1]
+
+    # Apply the ratios to the coordinates
+    corners_2d[:, 0] *= width_ratio
+    corners_2d[:, 1] *= height_ratio
+
+    # Return the adjusted coordinates
+    return corners_2d
 
 def show_predictions_with_boxes(save_folder, img, objects_pred, calib, show2d=True, show3d=True, count=0):
     # draw 2D Pred
@@ -163,24 +186,34 @@ def show_predictions_with_boxes(save_folder, img, objects_pred, calib, show2d=Tr
 def show_predAndGT_with_boxes(save_folder,img, objects_pred, objects, calib, count=0):
     # This function will show the predicted 3D box in dash and the GroundTruth
     img1 = np.copy(img)
-    for obj in objects_pred:
-        box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P)
-        if box3d_pts_2d is None:
-            print("something wrong in the 3D box.")
-            continue
-        if obj.type == "Car":
-            img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(255, 0, 255))
-        elif obj.type == "Pedestrian":
-            img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(0, 0, 255))
-        elif obj.type == "Cyclist":
-            img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(255, 0, 0))
-            # Specify the desired file path and extension
+    # for obj in objects_pred:
+    #     box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P)
+    #     if box3d_pts_2d is None:
+    #         print("something wrong in the 3D box.")
+    #         continue
+    #     if obj.type == "Car":
+    #         img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(255, 0, 255))
+    #     elif obj.type == "Pedestrian":
+    #         img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(0, 0, 255))
+    #     elif obj.type == "Cyclist":
+    #         img1 = utils.draw_projected_box3d_Dash(img1, box3d_pts_2d, color=(255, 0, 0))
+    #         # Specify the desired file path and extension
     for obj in objects:
-        box3d_pts_2d, _ = utils.compute_box_3d(obj, calib.P)
+        box3d_pts_2d, C = utils.compute_box_3d(obj, calib.P)
         if box3d_pts_2d is None:
-            print("something wrong in the 3D box.")
+            # print("something wrong in the 3D box.")
             continue
+
+        # # Original and new image sizes
+        # original_size = (1920, 1080)
+        # new_size = (1382, 512)
+        # # Adjust the coordinates
+        # print('The 3D coordinates on 1920 * 1080 imgs:', box3d_pts_2d)
+        # box3d_pts_2d = resize_coordinates(box3d_pts_2d, original_size, new_size)
+        # print('The 3D coordinates on 1382 * 512 imgs:', box3d_pts_2d)
+
         if obj.type == "Car":
+            # img1 = cv2.resize(img1, [1920, 1080], interpolation = cv2.INTER_LINEAR)
             img1 = utils.draw_projected_box3d(img1, box3d_pts_2d, color=(0, 255, 0))
         elif obj.type == "Pedestrian":
             img1 = utils.draw_projected_box3d(img1, box3d_pts_2d, color=(255, 255, 0))
@@ -189,9 +222,8 @@ def show_predAndGT_with_boxes(save_folder,img, objects_pred, objects, calib, cou
             # Specify the desired file path and extension
     save_path = save_folder + '/' + str(count).zfill(6) + ".jpg"
     cv2.imwrite(save_path, img1)
-    print(save_path)
-    print(img1)
     return img1
+
 def show_image_with_boxes(save_folder, img, objects, calib, count=0):
     img1 = np.copy(img)
     img2 = np.copy(img)  # for 3d bbox
@@ -240,15 +272,14 @@ def show_image_with_boxes(save_folder, img, objects, calib, count=0):
 
 
 if __name__ == "__main__":
-    save_path =  '/media/data1/yanran/SMOKE/datasets/kitti/Results' #
-    root_dir =  '/media/data1/yanran/SMOKE/datasets/kitti' # training and testing are under it
+    save_path =  '/home/soe/Documents/MyProjects/Polysurance/SMOKE/datasets/kitti/Results' # '/media/data1/yanran/SMOKE/datasets/kitti/Results' #
+    root_dir =  '/home/soe/Documents/MyProjects/Polysurance/SMOKE/datasets/kitti' # '/media/data1/yanran/SMOKE/datasets/kitti' # training and testing are under it
 
     set_label = ['training', 'testing']
     split_set = set_label[0]
     print(split_set)
 
     if split_set == 'testing':
-        print('testing')
         dataset = kitti_object(root_dir, split='testing', args=None)
         for data_idx in range(len(dataset)):
             # load the information of 3D box from txt files
@@ -259,6 +290,7 @@ if __name__ == "__main__":
             calib = dataset.get_calibration(data_idx)
             img = dataset.get_image(data_idx)
             print(data_idx)
+            print('hehe')
 
             # extract each objects from the data
             n_obj = 0
@@ -282,6 +314,8 @@ if __name__ == "__main__":
             objects_pred = dataset.get_pred_objects(data_idx)
             calib = dataset.get_calibration(data_idx)
             img = dataset.get_image(data_idx)
+            print(img.dtype)
+            print(data_idx)
 
             # extract each objects from the data
             n_obj = 0
@@ -294,6 +328,6 @@ if __name__ == "__main__":
             save_folder = save_path + "/KITTI_3D_" + split_set + "_PredAndGT"
             if not os.path.exists(save_folder):
                 os.makedirs(save_folder)
-            print(save_folder)
+            # print(save_folder)
             show_predAndGT_with_boxes(save_folder, img, objects_pred, objects, calib, data_idx)
 

@@ -5,10 +5,10 @@ mv evaluate_object_3d_offline.cpp smoke/data/datasets/evaluation/kitti/kitti_eva
 
 # How to test the model.pth and plot the video demos
 python tools/plain_train_net.py --eval-only --config-file "configs/smoke_gn_vector.yaml"
-cp -r tools/logs/inference/kitti_test/data datasets/kitti/pred
-python visualization.py
+cp -r tools/logs/inference/kitti_test/data datasets/kitti/testing/pred
+python tools/visualization.py
 python ShortZeros.py
-python Images2Video.py
+python smoke/utils/Images2Video.py
 
 ###########################################################################################
 ## Important changes:

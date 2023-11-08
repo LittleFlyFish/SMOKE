@@ -2,7 +2,7 @@ import cv2
 import os
 
 # Specify the path to the main folder containing the video folders
-main_folder = '/home/soe/Documents/kitti/TestVideos'
+main_folder = '/home/soe/Documents/MyProjects/Polysurance/kitti/TestVideos'
 
 video_files = [f for f in os.listdir(main_folder) if f.endswith('.mp4')]
 

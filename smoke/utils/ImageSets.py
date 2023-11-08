@@ -1,8 +1,8 @@
 import os
-files = os.listdir('/soe/SMOKE/datasets/kitti/training/image_2')
+files = os.listdir('/home/soe/Documents/MyProjects/Polysurance/SMOKE/datasets/kitti/testing/image_2')
 files.sort()
 
-save_txt = open('/soe/SMOKE/datasets/kitti/training/ImageSets/trainval.txt', 'w')
+save_txt = open('/home/soe/Documents/MyProjects/Polysurance/SMOKE/datasets/kitti/testing/ImageSets/test.txt', 'w')
 
 for file in files:
     print('file:', file)

@@ -2,7 +2,7 @@ import cv2
 import os
 
 # Path to the folder containing the images
-folder_path = '/home/soe/Documents/kitti/Results/KITTI_3D_testing_Pred3D/'
+folder_path = '/home/soe/Documents/MyProjects/Polysurance/kitti/Results/KITTI_3D_testing_Pred3D/'
 
 # Get a list of all files in the folder
 files = os.listdir(folder_path)
@@ -15,7 +15,7 @@ first_image = cv2.imread(os.path.join(folder_path, files[0]))
 height, width, _ = first_image.shape
 
 # Define the output video path and settings
-output_path = '/home/soe/Documents/kitti/Results/output_video.mp4'
+output_path = '/home/soe/Documents/MyProjects/Polysurance/kitti/Results/output_video.mp4'
 fps = 30
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 video_writer = cv2.VideoWriter(output_path, fourcc, fps, (width, height))

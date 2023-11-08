@@ -2,7 +2,7 @@ import os
 
 
 class DatasetCatalog():
-    DATA_DIR = "/soe/SMOKE/datasets"
+    DATA_DIR = "/home/soe/Documents/MyProjects/Polysurance/SMOKE/datasets"
     DATASETS = {
         "kitti_train": {
             "root": "kitti/training/",
