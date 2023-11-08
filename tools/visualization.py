@@ -290,7 +290,6 @@ if __name__ == "__main__":
             calib = dataset.get_calibration(data_idx)
             img = dataset.get_image(data_idx)
             print(data_idx)
-            print('hehe')
 
             # extract each objects from the data
             n_obj = 0
