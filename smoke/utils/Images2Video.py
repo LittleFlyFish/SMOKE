@@ -2,7 +2,7 @@ import cv2
 import os
 
 # Path to the folder containing the images
-folder_path = '/home/soe/Documents/MyProjects/Polysurance/kitti/Results/KITTI_3D_testing_Pred3D/'
+folder_path = '/home/soe/Documents/MyProjects/Polysurance/kitti/Results/KITTI_3D_training_PredAndGT/'
 
 # Get a list of all files in the folder
 files = os.listdir(folder_path)

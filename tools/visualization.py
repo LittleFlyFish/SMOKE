@@ -24,9 +24,9 @@ class kitti_object(object):
         self.split_dir = os.path.join(root_dir, split)
 
         if split == "training":
-            self.num_samples = 7481
+            self.num_samples = 4000 # 7481
         elif split == "testing":
-            self.num_samples = 7518
+            self.num_samples = 4000 # 7518
         else:
             print("Unknown split: %s" % (split))
             exit(-1)
@@ -220,6 +220,7 @@ def show_predAndGT_with_boxes(save_folder,img, objects_pred, objects, calib, cou
         elif obj.type == "Cyclist":
             img1 = utils.draw_projected_box3d(img1, box3d_pts_2d, color=(0, 255, 255))
             # Specify the desired file path and extension
+
     save_path = save_folder + '/' + str(count).zfill(6) + ".jpg"
     cv2.imwrite(save_path, img1)
     return img1
@@ -306,6 +307,7 @@ if __name__ == "__main__":
     if split_set == 'training':
         dataset = kitti_object(root_dir, split='training', args=None)
         print(len(dataset))
+        n_obj = 0
         for data_idx in range(len(dataset)):
             # load the information of 3D box from txt files
             objects = dataset.get_label_objects(
@@ -313,10 +315,20 @@ if __name__ == "__main__":
             objects_pred = dataset.get_pred_objects(data_idx)
             calib = dataset.get_calibration(data_idx)
             img = dataset.get_image(data_idx)
+            if img is None:
+                continue
+            if img.dtype != np.uint8:
+                # 如果数据类型不是np.uint8，则将其转换为np.uint8
+                img = img.astype(np.uint8)
             print(data_idx)
 
             # extract each objects from the data
-            n_obj = 0
+            for obj in objects:
+                box3d_pts_2d, C = utils.compute_box_3d(obj, calib.P)
+                if box3d_pts_2d is None:
+                    # print("something wrong in the 3D box.")
+                    continue
+                n_obj += 1
             # for obj in objects:
             #     if obj.type != "DontCare":
             #         print("=== {} object ===".format(n_obj + 1))
@@ -328,4 +340,5 @@ if __name__ == "__main__":
                 os.makedirs(save_folder)
             # print(save_folder)
             show_predAndGT_with_boxes(save_folder, img, objects_pred, objects, calib, data_idx)
+        print('The total number of cars:', n_obj)
 
